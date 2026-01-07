@@ -42,16 +42,17 @@ function LogInPage() {
                 navigate("/farmer");
             } else if (userRole === "AGRI_EXPERT") {
                 navigate("/doctor");
-            } else {
-                // default fallback - navigate to a safe page (e.g., dashboard or a selection)
+            } else if(userRole==="CUSTOMER"){
+                navigate("/customer")
+            }
+            else {
+                    // default fallback - navigate to a safe page (e.g., dashboard or a selection)
                 navigate("/mydashboard");
             }
-
         } catch (error) {
             console.log("Error inside the LogInPage.jsx:", error);
         }
     }
-
     return (
         <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-green-50 to-emerald-100 p-6">
             <Card className="w-full max-w-sm">

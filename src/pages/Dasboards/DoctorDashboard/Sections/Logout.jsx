@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import AppwriteAccount from "@/src/Appwrite/Account.Services";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 const Logout=()=>{
 const[isLoggingOut,setIsLoggingOut]=useState(false)
@@ -18,15 +19,20 @@ const[isLoggingOut,setIsLoggingOut]=useState(false)
             navigate("/")
        }
     }
-    console.log("render and re-render")
+    console.log("Logout clicked rende and rerender")
     return(
     <div>
-        <h1>Secret Page</h1>
-        <Button  
-        disabled={isLoggingOut ? true :false}
-        variant="destructive" onClick={handleUserLogout}>
-            {isLoggingOut ? " Logging out....":"Log Out"}
-        </Button>
+         <Button
+               disabled={isLoggingOut ? true : false}  
+               onClick={handleUserLogout}
+               className={`px-6 py-2 rounded-md font-medium text-white transition ${
+                 isLoggingOut
+                   ? "bg-red-400 cursor-not-allowed"
+                   : "bg-red-600 hover:bg-red-700 hover:cursor-pointer"
+               }`}
+             >
+               {isLoggingOut ? <Spinner className="size-8"/> : "Log out"}
+             </Button>
     </div>
     )
 }

@@ -6,7 +6,7 @@ import SignupPage from './pages/SignupPage'
 import App from './App.jsx'
 import PublicRoute from './Routes/PublicRoute'
 import LoginSelection from './pages/LoginSelection'
-
+import CustomerDashboard from './pages/Dasboards/CustomerDashboard/CustomerDashboard'
 import DoctorDashboard from './pages/Dasboards/DoctorDashboard/DoctorDashboard'
 import FarmerDashboard from './pages/Dasboards/FarmerDashboard/FarmerDashboard'
 import Herosection from './pages/Herosection'
@@ -34,10 +34,10 @@ const router=createBrowserRouter([
   { path: "/login",
      element: <PublicRoute><LoginPage/></PublicRoute>
    },
-   //{
-  //   path:"/customer",
-  //   element:<PrivateRoute><CustomerDashBoard/></PrivateRoute>
-  //  },
+   {
+    path:"/customer",
+    element:<CustomerDashboard/>
+   },
    {
     path:"/doctor",
     element:<PrivateRoute><DoctorDashboard/></PrivateRoute>

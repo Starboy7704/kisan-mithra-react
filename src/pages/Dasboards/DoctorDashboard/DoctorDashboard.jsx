@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Sidebar from "./Sections/Sidebar";
-
 import AppointmentRequests from "./Sections/AppointmentRequests";
 import MyAppointments from "./Sections/MyAppointments";
 import DoctorProfile from "./Sections/DoctorProfile";
