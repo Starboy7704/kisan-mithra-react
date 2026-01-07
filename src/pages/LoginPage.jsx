@@ -27,18 +27,26 @@ function LogInPage() {
 
     async function handleLogInUser() {
         try {
-            const result =await appwriteAccount.createAppwriteEmailPasswordSession(
+            const session = await appwriteAccount.createAppwriteEmailPasswordSession(
                     email,
                     password
                 );
-            console.log(result.role);
 
-            if (result.role === "FARMER") {
+            // fetch the logged-in user to read persisted role (we store role in prefs during signup)
+            const user = await appwriteAccount.getAppwriteUser();
+            console.log("session ->", session, "user ->", user);
+
+            const userRole = user?.prefs?.role || user?.role;
+
+            if (userRole === "FARMER") {
                 navigate("/farmer");
+            } else if (userRole === "AGRI_EXPERT") {
+                navigate("/doctor");
+            } else {
+                // default fallback - navigate to a safe page (e.g., dashboard or a selection)
+                navigate("/mydashboard");
             }
-            // else {
-            //     navigate("/login");
-            // }
+
         } catch (error) {
             console.log("Error inside the LogInPage.jsx:", error);
         }

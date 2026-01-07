@@ -1,21 +1,33 @@
+import { Button } from "@/components/ui/button";
+import AppwriteAccount from "@/src/Appwrite/Account.Services";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 
-const Logout = () => {
-  const navigate=useNavigate();
- const handleLogout=()=>{
-  navigate("/herosection")
- }
+const Logout=()=>{
+const[isLoggingOut,setIsLoggingOut]=useState(false)
 
-  return (
-    <div className="flex items-center justify-center h-64">
-      <button
-        onClick={handleLogout}
-        className="text-lg font-semibold px-4 py-2 bg-black text-white rounded"
-      >
-        Logout
-      </button>
+    const appwriteAcoount=new AppwriteAccount();
+    const navigate=useNavigate();
+
+   async function handleUserLogout(){
+    setIsLoggingOut(true)
+       const result=await appwriteAcoount.logout();
+       console.log("result")
+       if(!result?.message){
+        setIsLoggingOut(false)
+            navigate("/")
+       }
+    }
+    console.log("render and re-render")
+    return(
+    <div>
+        <h1>Secret Page</h1>
+        <Button  
+        disabled={isLoggingOut ? true :false}
+        variant="destructive" onClick={handleUserLogout}>
+            {isLoggingOut ? " Logging out....":"Log Out"}
+        </Button>
     </div>
-  );
-};
-
+    )
+}
 export default Logout;
