@@ -5,13 +5,26 @@ class AppwriteAccount {
   constructor() {
     this.account = new Account(appwriteClient);
   }
-  async createAppwriteAccount(email, password, fullname) {
+  async createAppwriteAccount(email, password, fullname, role) {
+    // Create the account
     const result = await this.account.create({
       userId: ID.unique(),
       email: email,
       password: password,
       name: fullname,
     });
+
+    // Try to sign in right away and persist the role to account prefs so it can be read later
+    try {
+      await this.account.createEmailPasswordSession({ email, password });
+      // store role in prefs (Appwrite supports storing user preferences)
+      await this.account.updatePrefs({ role });
+      // optional: end the session created during signup if you don't want to keep it
+      await this.account.deleteSession({ sessionId: "current" });
+    } catch (error) {
+      console.log("Warning: could not set role prefs after signup", error);
+    }
+
     return result;
   }
 
