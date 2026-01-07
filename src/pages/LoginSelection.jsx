@@ -1,17 +1,16 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React from "react";
+import { Link } from "react-router-dom";
 
-import farmerImg from "../assets/farmerImg.jpg"
-import customerImg from "../assets/customerImg.jpg"
-import agriexport from "../assets/agriexport.png"
+import farmerImg from "../assets/farmerImg.jpg";
+import customerImg from "../assets/customerImg.jpg";
+import agriexport from "../assets/agriexport.png";
 
 const roles = [
   {
     key: "FARMER",
     title: "Farmer",
     image: farmerImg,
-    description:
-      "Sell crops, buy seeds, book vehicles, and get expert advice.",
+    description: "Sell crops, buy seeds, book vehicles, and get expert advice.",
     features: [
       "Sell vegetables",
       "Buy seeds & pesticides",
@@ -23,8 +22,7 @@ const roles = [
     key: "CUSTOMER",
     title: "Customer",
     image: customerImg,
-    description:
-      "Buy fresh vegetables and crops directly from farmers.",
+    description: "Buy fresh vegetables and crops directly from farmers.",
     features: [
       "Buy fresh produce",
       "Bulk ordering",
@@ -36,8 +34,7 @@ const roles = [
     key: "AGRI_EXPERT",
     title: "Agri Expert",
     image: agriexport,
-    description:
-      "Provide consultations and help farmers with crop health.",
+    description: "Provide consultations and help farmers with crop health.",
     features: [
       "Manage appointments",
       "Online consultations",
@@ -45,7 +42,7 @@ const roles = [
       "Help farmers",
     ],
   },
-]
+];
 
 const LoginSelection = () => {
   return (
@@ -76,9 +73,7 @@ const LoginSelection = () => {
               {role.title}
             </h2>
 
-            <p className="text-gray-600 mb-4 italic">
-              {role.description}
-            </p>
+            <p className="text-gray-600 mb-4 italic">{role.description}</p>
 
             <ul className="text-left text-gray-700 list-disc list-inside mb-6 space-y-1">
               {role.features.map((item) => (
@@ -99,7 +94,7 @@ const LoginSelection = () => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LoginSelection
+export default LoginSelection;

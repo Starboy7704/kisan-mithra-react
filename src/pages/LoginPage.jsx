@@ -36,14 +36,10 @@ function LogInPage() {
             if (result.role === "FARMER") {
                 navigate("/farmer");
             }
-            // else {
-            //     navigate("/login");
-            // }
         } catch (error) {
             console.log("Error inside the LogInPage.jsx:", error);
         }
     }
-
     return (
         <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-green-50 to-emerald-100 p-6">
             <Card className="w-full max-w-sm">

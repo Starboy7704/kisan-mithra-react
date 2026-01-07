@@ -21,7 +21,6 @@ const[isLoggingOut,setIsLoggingOut]=useState(false)
     console.log("render and re-render")
     return(
     <div>
-        <h1>Secret Page</h1>
         <Button  
         disabled={isLoggingOut ? true :false}
         variant="destructive" onClick={handleUserLogout}>
