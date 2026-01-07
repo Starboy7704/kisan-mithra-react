@@ -13,6 +13,7 @@ import Herosection from './pages/Herosection'
 import AppwriteAccount from './Appwrite/Account.Services'
 import MyDashboard from './pages/MyDashboard'
 import PrivateRoute from './Routes/PrivateRoute'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 console.log(typeof APPWRITE_ENDPOINT)
 
@@ -20,6 +21,7 @@ console.log(typeof APPWRITE_ENDPOINT)
 const appwriteAccount = new AppwriteAccount()
 const user= await appwriteAccount.getAppwriteUser()
 console.log(user)
+const queryClient = new QueryClient()
 
 
 const router=createBrowserRouter([
@@ -66,6 +68,8 @@ const router=createBrowserRouter([
       element: <PrivateRoute><DoctorDashboard/></PrivateRoute>
      }
 ])
-createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
-)
+createRoot(document.getElementById("root")).render(
+  <QueryClientProvider client={queryClient}>
+    <RouterProvider router={router} />
+  </QueryClientProvider>
+);

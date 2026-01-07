@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import AppwriteAccount from "../appwrite/Account.services";
+import { useMutation } from "@tanstack/react-query";
 
 function LogInPage() {
     const [email, setEmail] = useState("");
@@ -25,34 +26,61 @@ function LogInPage() {
         navigate("/loginSelection");
     }
 
-    async function handleLogInUser() {
-        try {
-            const session = await appwriteAccount.createAppwriteEmailPasswordSession(
-                    email,
-                    password
-                );
+    // async function handleLogInUser() {
+    //     try {
+    //         const session = await appwriteAccount.createAppwriteEmailPasswordSession(
+    //                 email,
+    //                 password
+    //             );
 
-            // fetch the logged-in user to read persisted role (we store role in prefs during signup)
+    //         // fetch the logged-in user to read persisted role (we store role in prefs during signup)
+    //         const user = await appwriteAccount.getAppwriteUser();
+    //         console.log("session ->", session, "user ->", user);
+
+    //         const userRole = user?.prefs?.role || user?.role;
+
+    //         if (userRole === "FARMER") {
+    //             navigate("/farmer");
+    //         } else if (userRole === "AGRI_EXPERT") {
+    //             navigate("/doctor");
+    //         } else if(userRole==="CUSTOMER"){
+    //             navigate("/customer")
+    //         }
+    //         else {
+    //                 // default fallback - navigate to a safe page (e.g., dashboard or a selection)
+    //             navigate("/mydashboard");
+    //         }
+    //     } catch (error) {
+    //         console.log("Error inside the LogInPage.jsx:", error);
+    //     }
+    // }
+    const mutation = useMutation({
+        mutationFn : async({email, password})=>{
+            const session = await appwriteAccount.createAppwriteEmailPasswordSession(
+                email,
+                password
+            );
             const user = await appwriteAccount.getAppwriteUser();
             console.log("session ->", session, "user ->", user);
-
-            const userRole = user?.prefs?.role || user?.role;
-
-            if (userRole === "FARMER") {
+            return user;
+        },
+        onSuccess : (user)=>{
+            const userRole  = user?.prefs?.role || user?.role;
+            if(userRole === "FARMER"){
                 navigate("/farmer");
-            } else if (userRole === "AGRI_EXPERT") {
+            }else if (userRole === "AGRI_EXPERT") {
                 navigate("/doctor");
             } else if(userRole==="CUSTOMER"){
                 navigate("/customer")
             }
             else {
-                    // default fallback - navigate to a safe page (e.g., dashboard or a selection)
                 navigate("/mydashboard");
             }
-        } catch (error) {
-            console.log("Error inside the LogInPage.jsx:", error);
+
         }
-    }
+        
+    })
+    
     return (
         <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-green-50 to-emerald-100 p-6">
             <Card className="w-full max-w-sm">
@@ -95,8 +123,12 @@ function LogInPage() {
 
                 <CardFooter className="flex-col gap-2">
                     <Button
-                        onClick={handleLogInUser}
-                        className="w-full" >
+                        onClick= {()=>{
+                            mutation.mutate({ email, password })
+                        }}
+                        disabled = {mutation.isPending}
+                        className="w-full" 
+                        >
                         Login
                     </Button>
 

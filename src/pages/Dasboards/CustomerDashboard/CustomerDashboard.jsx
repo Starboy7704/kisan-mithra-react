@@ -4,7 +4,7 @@ import Cart from "./Sections/Cart";
 import Orders from "../FarmerDashboard/Sections/Orders";
 import Payments from "./Sections/Payments";
 import Profile from "./Sections/Profile";
-import Logout from "./Sections/Logout";
+import Logout from "../../Logout";
 import Sidebar from "./Sections/Sidebar";
 
 const CustomerDashboard = () => {

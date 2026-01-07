@@ -6,7 +6,7 @@ import DoctorProfile from "./Sections/DoctorProfile";
 import Chat from "./Sections/Chat";
 import VideoConsultation from "./Sections/VideoConsultation";
 import Payments from "./Sections/Payments";
-import Logout from "./Sections/Logout";
+import Logout from "../../Logout";
 
 const DoctorDashboard = () => {
   const [activeTab, setActiveTab] = useState("Requests");
