@@ -7,7 +7,7 @@ import BookVehicles from "./Sections/BookVehicles";
 import BuySeeds from "./Sections/BuySeeds";
 import Sidebar from "./Sections/Sidebar";
 import Orders from "./Sections/Orders";
-import Logout from "./Sections/Logout";
+import Logout from "../../Logout";
 
 const FarmerDashboard = () => {
   const [activeTab, setActiveTab] = useState("BuySeeds");

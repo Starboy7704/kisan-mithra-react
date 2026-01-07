@@ -46,7 +46,7 @@ const roles = [
 
 const LoginSelection = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-green-50 to-emerald-100 p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-linear-to-b from-green-50 to-emerald-100 p-6">
       {/* Heading */}
       <h1 className="text-4xl font-bold text-green-800 mb-2">
         Welcome to Kisan Mitra
