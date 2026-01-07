@@ -83,7 +83,8 @@ function SignupPage() {
     const result = await appwriteAccount.createAppwriteAccount(
       email,
       password,
-      fullname
+      fullname,
+      role
     )
 
     if (result?.status) {
