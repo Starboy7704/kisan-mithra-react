@@ -7,6 +7,7 @@ import Chat from "./Sections/Chat";
 import VideoConsultation from "./Sections/VideoConsultation";
 import Payments from "./Sections/Payments";
 import Logout from "../../Logout";
+import UserProfile from "../../UserProfile";
 
 const DoctorDashboard = () => {
   const [activeTab, setActiveTab] = useState("Requests");
@@ -31,8 +32,8 @@ const DoctorDashboard = () => {
       case "Payments":
         return <Payments />;
 
-      case "Logout":
-        return <Logout />;
+      case "UserProfile":
+        return <UserProfile/>;
 
       default:
         return <AppointmentRequests />;

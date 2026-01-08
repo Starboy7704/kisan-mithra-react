@@ -8,6 +8,7 @@ import BuySeeds from "./Sections/BuySeeds";
 import Sidebar from "./Sections/Sidebar";
 import Orders from "./Sections/Orders";
 import Logout from "../../Logout";
+import UserProfile from "../../UserProfile";
 
 const FarmerDashboard = () => {
   const [activeTab, setActiveTab] = useState("BuySeeds");
@@ -28,8 +29,8 @@ const FarmerDashboard = () => {
         return <BookVehicles />;
       case "Orders":
         return <Orders />;
-      case "Logout":
-        return <Logout />;
+      case "UserProfile":
+        return <UserProfile/>;
       default:
         return <BuySeeds />;
     }
