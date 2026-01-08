@@ -6,6 +6,7 @@ import Payments from "./Sections/Payments";
 import Profile from "./Sections/Profile";
 import Logout from "../../Logout";
 import Sidebar from "./Sections/Sidebar";
+import UserProfile from "../../UserProfile";
 
 const CustomerDashboard = () => {
   const [activeTab, setActiveTab] = useState("Browse products");
@@ -26,8 +27,8 @@ const CustomerDashboard = () => {
       case "Profile":
         return <Profile />;
 
-      case "Logout":
-        return <Logout />;
+      case "UserProfile":
+        return <UserProfile/>;
 
       default:
         return <Browseproducts/>
