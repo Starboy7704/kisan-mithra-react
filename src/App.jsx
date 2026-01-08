@@ -9,9 +9,11 @@ function App() {
   const appwriteAccount = new AppwriteAccount();
   const navigate = useNavigate();
 
+
+  //Tanstack
   const { isPending, data } = useQuery({
     queryKey: ["authUser"],
-
+    //query function
     queryFn: async () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       const user = await appwriteAccount.getAppwriteUser();
