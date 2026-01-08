@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import AppwriteAccount from "@/src/Appwrite/Account.Services";
 import { useNavigate } from "react-router";
 import { useState } from "react";
-import { Spinner } from "@/components/ui/spinner";
+import Spinner from "@/components/ui/spinner";
+// import { Spinner } from "@/components/ui/spinner";
 
 const Logout=()=>{
 const[isLoggingOut,setIsLoggingOut]=useState(false)
@@ -31,7 +32,7 @@ const[isLoggingOut,setIsLoggingOut]=useState(false)
                    : "bg-red-600 hover:bg-red-700 hover:cursor-pointer"
                }`}
              >
-               {isLoggingOut ? <Spinner className="size-8"/> : "Log out"}
+               {isLoggingOut ? <Spinner/> : "Log out"}
              </Button>
     </div>
     )

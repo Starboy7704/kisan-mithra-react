@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import AppwriteAccount from "../Appwrite/Account.Services";
 import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/ui/spinner";
+import Spinner from "@/components/ui/spinner";
+
 
 function PrivateRoute({ children }) {
   const [user, setUser] = useState(null);
@@ -33,7 +34,7 @@ function PrivateRoute({ children }) {
           size="sm"
           className="flex items-center gap-2"
         >
-          <Spinner />
+        <Spinner/>
           Please wait
         </Button>
       </div>
