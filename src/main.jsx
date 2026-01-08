@@ -14,6 +14,7 @@ import AppwriteAccount from './Appwrite/Account.Services'
 import MyDashboard from './pages/MyDashboard'
 import PrivateRoute from './Routes/PrivateRoute'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import AboutSection from './pages/AboutSection'
 
 console.log(typeof APPWRITE_ENDPOINT)
 
@@ -52,7 +53,10 @@ const router=createBrowserRouter([
      {
       path:"/herosection",
       element:<Herosection/>
-
+     },
+     {
+      path:"/aboutsection",
+      element:<AboutSection/>
      },
      {
       path:"/loginSelection",
@@ -71,5 +75,5 @@ const router=createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
     <RouterProvider router={router} />
-  </QueryClientProvider>
+  </QueryClientProvider>//=React Context for TanStack Query
 );
