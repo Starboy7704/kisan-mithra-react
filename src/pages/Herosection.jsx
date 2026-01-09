@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router";
-import logo from "../assets/logo.png";
-import heroBg from "../assets/hero_bg.png";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Leaf, Sun, Droplets } from "lucide-react";
 import Navbar from "./Navbar";
