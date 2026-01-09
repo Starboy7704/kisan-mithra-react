@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Leaf, Sun, Droplets } from "lucide-react";
 import Navbar from "./Navbar";
 import AboutSection from "./AboutSection";
+import ServicesSection from "./ServicesSection";
 
 function HeroSection() {
   return (
@@ -91,11 +92,11 @@ function HeroSection() {
 
             {/* User Roles */}
             <div
-              className="mt-16 animate-fade-up"
+              className="mt-8 animate-fade-up"
               style={{ animationDelay: "0.4s" }}
             >
               <p className="text-sm text-muted-foreground mb-4">Join as</p>
-              <div className="flex flex-wrap justify-center gap-3">
+              <div className="flex flex-wrap justify-center gap-4">
                 {["Farmer", "Customer", "Doctor", "Admin"].map((role) => (
                   <span
                     key={role}
@@ -126,7 +127,18 @@ function HeroSection() {
       </section>
 
 {/* aboutsection */}
-      <AboutSection/>
+
+
+   <section id="aboutsection">
+  <AboutSection />
+</section>
+
+
+            {/* services section */}
+   <section id="servicesSection">
+  <ServicesSection/>
+</section>
+
     </div>
   );
 }
