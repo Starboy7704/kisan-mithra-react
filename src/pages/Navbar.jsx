@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../assets/Logo.png"
+import Logo from "../assets/Logo.png";
 import AboutSection from "./AboutSection";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -8,19 +8,18 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   const navigate = useNavigate();
 
   return (
     <nav className="flex items-center justify-between px-6 bg-emerald-200">
-     <Link
-  to="/"
->
- <img
-  src={Logo}
-  alt="Kisan Mitra Logo"
-  className="
+      <Link to="/">
+        <img
+          src={Logo}
+          alt="Kisan Mitra Logo"
+          className="
     w-40 h-20
     object-contain
     drop-shadow-md
@@ -28,19 +27,20 @@ const Navbar = () => {
     group-hover:scale-110
     group-hover:drop-shadow-lg
   "
-/>
-
-</Link>
+        />
+      </Link>
       <div className="flex items-center gap-6">
         <Link to="/home">Home</Link>
         <Link to="/AboutSection">About</Link>
         <Link to="/services">Services</Link>
 
         <DropdownMenu>
-          <DropdownMenuTrigger className="cursor-pointer">
-            Login 
-          </DropdownMenuTrigger>
-          <button onClick={() => navigate("/LoginSelection")}>Register</button>
+          <Button>
+            <DropdownMenuTrigger className="cursor-pointer">
+              Login
+            </DropdownMenuTrigger>
+          </Button>
+          <Button onClick={() => navigate("/LoginSelection")}>Register</Button>
 
           <DropdownMenuContent align="end">
             <DropdownMenuItem onClick={() => navigate("/login")}>
