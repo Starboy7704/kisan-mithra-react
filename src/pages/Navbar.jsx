@@ -30,9 +30,9 @@ const Navbar = () => {
         />
       </Link>
       <div className="flex items-center gap-6">
-        <Link to="/home">Home</Link>
-        <Link to="/AboutSection">About</Link>
-        <Link to="/services">Services</Link>
+      <a href="">Home</a>
+       <a href="#aboutsection">About</a>
+        <a href="#servicesSection">Services</a>
 
         <DropdownMenu>
           <Button>
