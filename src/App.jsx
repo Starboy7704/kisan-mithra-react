@@ -1,12 +1,12 @@
-import AppwriteAccount from "./Appwrite/Account.Services";
+// import AppwriteAccount from "./Appwrite/Account.Services";
 import { useNavigate } from "react-router";
 import Herosection from "./pages/Herosection";
-// import { Spinner } from "@/components/ui/spinner";
+// import Spinner from "@/components/ui/spinner";
 import { useQuery } from "@tanstack/react-query";
 import Spinner from "@/components/ui/spinner";
 
 function App() {
-  const appwriteAccount = new AppwriteAccount();
+  // const appwriteAccount = new AppwriteAccount();
   const navigate = useNavigate();
 
 
@@ -15,8 +15,8 @@ function App() {
     queryKey: ["authUser"],
     //query function
     queryFn: async () => {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      const user = await appwriteAccount.getAppwriteUser();
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // const user = await appwriteAccount.getAppwriteUser();
       return user ?? null;
     },
 

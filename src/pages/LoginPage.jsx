@@ -33,6 +33,7 @@ function LogInPage() {
             );
             const user = await appwriteAccount.getAppwriteUser();
             console.log("session ->", session, "user ->", user);
+            console.log(user)
             return user;
         },
         onSuccess : (user)=>{
