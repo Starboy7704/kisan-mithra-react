@@ -124,19 +124,16 @@ function HeroSection() {
         </div>
       </section>
 
-{/* aboutsection */}
+      {/* aboutsection */}
 
+      <section id="aboutsection">
+        <AboutSection />
+      </section>
 
-   <section id="aboutsection">
-  <AboutSection />
-</section>
-
-
-            {/* services section */}
-   <section id="servicesSection">
-  <ServicesSection/>
-</section>
-
+      {/* services section */}
+      <section id="servicesSection">
+        <ServicesSection />
+      </section>
     </div>
   );
 }

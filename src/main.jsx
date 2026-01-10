@@ -10,20 +10,11 @@ import CustomerDashboard from './pages/Dasboards/CustomerDashboard/CustomerDashb
 import DoctorDashboard from './pages/Dasboards/DoctorDashboard/DoctorDashboard'
 import FarmerDashboard from './pages/Dasboards/FarmerDashboard/FarmerDashboard'
 import Herosection from './pages/Herosection'
-import AppwriteAccount from './Appwrite/Account.Services'
 import MyDashboard from './pages/MyDashboard'
 import PrivateRoute from './Routes/PrivateRoute'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { queryClient } from './queryClient.js'
 import AboutSection from './pages/AboutSection'
-
-console.log(typeof APPWRITE_ENDPOINT)
-
-//instance
-const appwriteAccount = new AppwriteAccount()
-const user= await appwriteAccount.getAppwriteUser()
-console.log(user)
-const queryClient = new QueryClient()
-
 
 const router=createBrowserRouter([
   { path: "/",
@@ -75,5 +66,5 @@ const router=createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
     <RouterProvider router={router} />
-  </QueryClientProvider>//=React Context for TanStack Query
+  </QueryClientProvider>
 );

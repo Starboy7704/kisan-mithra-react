@@ -57,10 +57,10 @@ const Navbar = () => {
                 <DropdownMenuItem onClick={() => navigate("/login")}>
                   Farmer Login
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate("/login/doctor")}>
+                <DropdownMenuItem onClick={() => navigate("/login")}>
                   Doctor Login
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate("/login/agri")}>
+                <DropdownMenuItem onClick={() => navigate("/login")}>
                   Agri Doctor Login
                 </DropdownMenuItem>
               </DropdownMenuContent>

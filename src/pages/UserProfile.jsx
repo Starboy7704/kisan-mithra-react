@@ -1,4 +1,3 @@
-
 import Logout from "./Logout";
 
 const UserProfile = () => {
