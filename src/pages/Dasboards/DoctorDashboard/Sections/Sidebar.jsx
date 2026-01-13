@@ -8,7 +8,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     { name: "Chat", key: "Chat" },
     { name: "Video", key: "VideoConsultation" },
     { name: "Payments", key: "Payments" },
-    { name: "User Profile", key: "UserProfile" },
+    { name: "Profile", key: "UserProfile" },
   ];
 
   return (

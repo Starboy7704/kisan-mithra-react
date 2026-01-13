@@ -7,7 +7,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     { name: "Orders", key: "Orders" },
     { name: "Payments", key: "Payments" },
     { name: "Profile", key: "Profile" },
-    { name: "User Profile", key: "UserProfile" },
+    { name: "Profile", key: "UserProfile" },
   ];
   return (
     <aside className="w-60 min-h-screen bg-green-700 text-white p-4">

@@ -7,7 +7,6 @@ import BookVehicles from "./Sections/BookVehicles";
 import BuySeeds from "./Sections/BuySeeds";
 import Sidebar from "./Sections/Sidebar";
 import Orders from "./Sections/Orders";
-import Logout from "../../Logout";
 import UserProfile from "../../UserProfile";
 
 const FarmerDashboard = () => {

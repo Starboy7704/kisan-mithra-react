@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import Sidebar from "./Sections/Sidebar";
 import AppointmentRequests from "./Sections/AppointmentRequests";
 import MyAppointments from "./Sections/MyAppointments";
-import DoctorProfile from "./Sections/DoctorProfile";
 import Chat from "./Sections/Chat";
 import VideoConsultation from "./Sections/VideoConsultation";
 import Payments from "./Sections/Payments";
-import Logout from "../../Logout";
 import UserProfile from "../../UserProfile";
 
 const DoctorDashboard = () => {
@@ -20,8 +18,8 @@ const DoctorDashboard = () => {
       case "Appointments":
         return <MyAppointments />;
 
-      case "DoctorProfile":
-        return <DoctorProfile />;
+      // case "DoctorProfile":
+      //   return <DoctorProfile />;
 
       case "Chat":
         return <Chat />;
