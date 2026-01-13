@@ -9,6 +9,7 @@ import LoginSelection from './pages/LoginSelection'
 import CustomerDashboard from './pages/Dasboards/CustomerDashboard/CustomerDashboard'
 import DoctorDashboard from './pages/Dasboards/DoctorDashboard/DoctorDashboard'
 import FarmerDashboard from './pages/Dasboards/FarmerDashboard/FarmerDashboard'
+import AdminDashboard from './pages/Dasboards/AdminDashboard/AdminDashboard'
 import Herosection from './pages/Herosection'
 import MyDashboard from './pages/MyDashboard'
 import PrivateRoute from './Routes/PrivateRoute'
@@ -40,6 +41,10 @@ const router=createBrowserRouter([
 
       path:"/farmer",
       element:<FarmerDashboard/>
+     },
+     {
+      path:"/admin",
+      element:<PrivateRoute><AdminDashboard/></PrivateRoute>
      },
      {
       path:"/herosection",

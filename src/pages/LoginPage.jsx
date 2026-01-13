@@ -50,6 +50,9 @@ function LogInPage() {
             } else if(userRole==="CUSTOMER"){
                 navigate("/customer")
             }
+            else if(userRole === "ADMIN"){
+                navigate("/admin")
+            }
             else {
                 navigate("/mydashboard");
             }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Leaf, Sun, Droplets } from "lucide-react";
+import { Leaf, Sun, Droplets } from "lucide-react";
 import Navbar from "./Navbar";
 import AboutSection from "./AboutSection";
 import ServicesSection from "./ServicesSection";
