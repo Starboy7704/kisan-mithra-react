@@ -30,13 +30,36 @@ const Navbar = () => {
         />
       </Link>
       <div className="flex items-center gap-6">
-      <a href="">Home</a>
-       <a href="#aboutsection">About</a>
-        <a href="#servicesSection">Services</a>
+<a
+  href="#aboutsection"
+  className="px-4 py-2 text-gray-700 rounded-md
+             hover:text-green-600 hover:shadow-[0_10px_rgba(34,197,94,0.6)]
+             transition-all duration-300"
+>
+  Home
+</a>
+
+
+<a
+  href="#aboutsection"
+  className="px-4 py-2 text-gray-700 rounded-md
+             hover:text-green-600 hover:shadow-[0_10px_rgba(34,197,94,0.6)]
+             transition-all duration-300">
+  About
+</a>
+
+<a
+  href="#aboutsection"
+  className="px-4 py-2 text-gray-700 rounded-md
+             hover:text-white-600 hover:shadow-[0_10px_rgba(34,197,94,0.6)]
+             transition-all duration-300">
+  Services
+</a>
+
 
         <DropdownMenu>
           <Button>
-            <DropdownMenuTrigger className="cursor-pointer">
+            <DropdownMenuTrigger className="cursor-pointer ">
               Login
             </DropdownMenuTrigger>
           </Button>
