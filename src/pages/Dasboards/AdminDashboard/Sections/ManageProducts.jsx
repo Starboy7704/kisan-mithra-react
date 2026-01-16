@@ -56,9 +56,9 @@ const ManageProducts = () => {
       setWaterRequirement("");
       setGrowthDurationDays("");
       setYieldPerAcre("");
-    } catch (err) {
-      console.error('Failed to create seed row:', err);
-      alert('Failed to save seed: ' + (err.message || err));
+    } catch (error) {
+      console.error('Failed to create seed row:', error);
+      alert('Failed to save seed: ' + (error.message || error));
     }
 }
 
