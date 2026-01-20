@@ -8,18 +8,30 @@ class AppwriteTablesDB {
   }
 
   async createRow(tablesId, data) {
-
     try {
       const result = await this.tablesDB.createRow({
         databaseId: APPWRITE_DATABASE_ID,
         tableId: tablesId,
         rowId: ID.unique(),
-        data: data 
+        data: data,
       });
       return result;
     } catch (error) {
-        console.error(error);
-        throw new Error(error.message)
+      console.error(error);
+      throw new Error(error.message);
+    }
+  }
+
+  async listRows(tableId) {
+    try {
+      const result = await this.tablesDB.listRows({
+        databaseId: APPWRITE_DATABASE_ID,
+        tableId: tableId,
+      });
+      return result;
+    } catch (error) {
+      console.error(error);
+      throw new Error(error.message);
     }
   }
 }
