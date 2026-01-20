@@ -14,6 +14,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import AppwriteAccount from "../appwrite/Account.services";
 import { useMutation } from "@tanstack/react-query";
+import useAuthStore from "@/store/authStore";
 
 function LogInPage() {
     const [email, setEmail] = useState("");
@@ -21,6 +22,8 @@ function LogInPage() {
 
     const navigate = useNavigate();
     const appwriteAccount = new AppwriteAccount();
+
+    const setCurrentUser = useAuthStore((state) => state.setCurrentUser)
 
     function handleNavigateToRegisterPage() {
         navigate("/loginSelection");
@@ -33,9 +36,12 @@ function LogInPage() {
             );
             const user = await appwriteAccount.getAppwriteUser();
             console.log("session ->", session, "user ->", user);
+            console.log(user)
             return user;
         },
         onSuccess : (user)=>{
+            setCurrentUser(user);
+            console.log(setCurrentUser);
             const userRole  = user?.prefs?.role || user?.role;
             if(userRole === "FARMER"){
                 navigate("/farmer");
@@ -43,6 +49,9 @@ function LogInPage() {
                 navigate("/doctor");
             } else if(userRole==="CUSTOMER"){
                 navigate("/customer")
+            }
+            else if(userRole === "ADMIN"){
+                navigate("/admin")
             }
             else {
                 navigate("/mydashboard");

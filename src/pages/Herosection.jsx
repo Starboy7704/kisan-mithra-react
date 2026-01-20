@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
-import logo from "../assets/logo.png";
-import heroBg from "../assets/hero_bg.png";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Leaf, Sun, Droplets } from "lucide-react";
+import { Leaf, Sun, Droplets } from "lucide-react";
 import Navbar from "./Navbar";
 import AboutSection from "./AboutSection";
 import ServicesSection from "./ServicesSection";
@@ -126,19 +124,16 @@ function HeroSection() {
         </div>
       </section>
 
-{/* aboutsection */}
+      {/* aboutsection */}
 
+      <section id="aboutsection">
+        <AboutSection />
+      </section>
 
-   <section id="aboutsection">
-  <AboutSection />
-</section>
-
-
-            {/* services section */}
-   <section id="servicesSection">
-  <ServicesSection/>
-</section>
-
+      {/* services section */}
+      <section id="servicesSection">
+        <ServicesSection />
+      </section>
     </div>
   );
 }

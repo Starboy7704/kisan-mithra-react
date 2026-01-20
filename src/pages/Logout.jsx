@@ -33,7 +33,7 @@ const Logout = () => {
         }`}
       >
         {isLoggingOut ? (
-            <Spinner className="size-10 text-emerald-600 animate-spin" />
+            <Spinner className="size-5 text-white-600 animate-spin" />
         
         ) : (
           "Log out"
