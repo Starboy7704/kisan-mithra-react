@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
 import { APPWRITE_SEEDS_TABLE_ID } from "@/src/Utils/Appwrite/constants";
-import SeedCard from "@/src/components/seeds/SeedCard";
+import SeedCard from "@/src/components/seeds/Card";
+import Spinner from "@/components/ui/spinner";
 
 const BuySeeds = () => {
   const [seeds, setSeeds] = useState([]); // 👈 state
@@ -24,26 +25,13 @@ const BuySeeds = () => {
     fetchSeeds();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return 
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-green-50 to-emerald-100">
+        <Spinner className="size-10 text-emerald-600 animate-spin" />
+      </div>
 
   return (
     <>
-      <div>BuySeeds</div>
-
-      {/* <section>
-        {seeds.length === 0 ? (
-          <p>No seeds available</p>
-        ) : (
-          seeds.map((seed) => (
-            <h1
-              className="underline font-semibold"
-              key={seed.$id}
-            >
-              {seed.seedName}
-            </h1>
-          ))
-        )}
-      </section> */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {seeds.map((seed) => (
           <SeedCard key={seed.$id} seed={seed} />

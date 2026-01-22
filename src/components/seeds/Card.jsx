@@ -1,4 +1,6 @@
-const SeedCard = ({ seed }) => {
+
+//seedscard
+const Card = ({ seed }) => {
   return (
     <div className="group rounded-2xl border bg-white p-5 shadow-sm transition hover:shadow-lg">
       
@@ -50,4 +52,4 @@ const SeedCard = ({ seed }) => {
   );
 };
 
-export default SeedCard;
+export default Card;
