@@ -40,7 +40,7 @@ const router=createBrowserRouter([
      {
 
       path:"/farmer",
-      element:<FarmerDashboard/>
+      element:<PrivateRoute><FarmerDashboard/></PrivateRoute>
      },
      {
       path:"/admin",
