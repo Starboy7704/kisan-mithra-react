@@ -14,7 +14,7 @@ import Herosection from './pages/Herosection'
 import MyDashboard from './pages/MyDashboard'
 import PrivateRoute from './Routes/PrivateRoute'
 import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClient } from './queryClient.js'
+import { queryClient } from "./queryClient";
 import AboutSection from './pages/AboutSection'
 
 const router=createBrowserRouter([
@@ -38,7 +38,6 @@ const router=createBrowserRouter([
     element:<PrivateRoute><DoctorDashboard/></PrivateRoute>
    },
      {
-
       path:"/farmer",
       element:<FarmerDashboard/>
      },
@@ -58,10 +57,10 @@ const router=createBrowserRouter([
       path:"/loginSelection",
       element:<LoginSelection/>
      },
-     {
-      path : "/mydashboard",
-      element : <PrivateRoute><MyDashboard/></PrivateRoute>
-     },
+    //  {
+    //   path : "/mydashboard",
+    //   element : <PrivateRoute><MyDashboard/></PrivateRoute>
+    //  },
      {
 
       path:"/doctorDashboard",
