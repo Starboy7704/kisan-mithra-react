@@ -54,7 +54,7 @@ function LogInPage() {
                 navigate("/admin")
             }
             else {
-                navigate("/mydashboard");
+                navigate("/");
             }
 
         }
