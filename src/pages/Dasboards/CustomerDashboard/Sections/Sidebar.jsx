@@ -6,7 +6,6 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     { name: "Cart", key: "cart" },
     { name: "Orders", key: "Orders" },
     { name: "Payments", key: "Payments" },
-    { name: "Profile", key: "Profile" },
     { name: "Profile", key: "UserProfile" },
   ];
   return (
