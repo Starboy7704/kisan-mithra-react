@@ -38,7 +38,7 @@ const FarmerDashboard = () => {
     <div className="flex min-h-screen bg-green-50">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <main className="flex-1 p-8 bg-white rounded-l-2xl shadow-inner">
+      <main className=" ml-62 flex-1 p-8 bg-white rounded-l-2xl shadow-inner">
         <h1 className="text-3xl font-bold text-green-800 mb-6">
           Farmer Dashboard 🌾
         </h1>

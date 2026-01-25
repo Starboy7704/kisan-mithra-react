@@ -3,7 +3,6 @@ import Browseproducts from "./Sections/Browseproducts";
 import Cart from "./Sections/Cart";
 import Orders from "../FarmerDashboard/Sections/Orders";
 import Payments from "./Sections/Payments";
-import Profile from "./Sections/Profile";
 import Sidebar from "./Sections/Sidebar";
 import UserProfile from "../../UserProfile";
 
@@ -23,8 +22,8 @@ const CustomerDashboard = () => {
       case "Payments":
         return <Payments />;
 
-      case "Profile":
-        return <Profile />;
+      // case "Profile":
+      //   return <Profile />;
 
       case "UserProfile":
         return <UserProfile/>;
@@ -37,7 +36,7 @@ const CustomerDashboard = () => {
   return(
       <div className="flex min-h-screen bg-gray-100">
         <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-        <main className="flex-1 p-6 bg-white">
+        <main className="flex-1 ml-62 p-6 bg-white">
           <h1 className="text-5xl font-bold text-gray-800 mb-4 text-center">Customer Dashboard🤵</h1>
           <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
             {renderContent()}

@@ -15,7 +15,7 @@ function App() {
 
   console.log("Component Renders...")
   console.log(currentUser); // null
-  console.log(setCurrentUser); 
+  // console.log(setCurrentUser); 
 
   //Tanstack
   const { isPending, data } = useQuery({

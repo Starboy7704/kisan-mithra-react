@@ -58,7 +58,7 @@ const Navbar = () => {
                   Farmer Login
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate("/login")}>
-                  Doctor Login
+                  Customer Login
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => navigate("/login")}>
                   Agri Doctor Login

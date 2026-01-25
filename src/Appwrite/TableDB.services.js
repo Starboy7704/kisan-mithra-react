@@ -37,56 +37,6 @@ class AppwriteTablesDB {
   }
 
 
-  // 1️⃣ Create / sell vegetable
-  async SellVegetables(data) {
-    try {
-      return await this.createRow(SELL_VEGETABLES_TABLE_ID, data);
-    } catch (error) {
-      console.error("Sell vegetable error:", error);
-      throw error;
-    }
-  }
-
-  // 2️⃣ List all vegetables
-  async listAllVegetables() {
-    try {
-      return await this.tablesDB.listRows({
-        databaseId: APPWRITE_DATABASE_ID,
-        tableId: SELL_VEGETABLES_TABLE_ID,
-      });
-    } catch (error) {
-      console.error("List vegetables error:", error);
-      throw error;
-    }
-  }
-
-  // 3️⃣ List vegetables by farmer (for “My Vegetables” later)
-  async listVegetablesByFarmer(farmerId) {
-    try {
-      return await this.tablesDB.listRows({
-        databaseId: APPWRITE_DATABASE_ID,
-        tableId: SELL_VEGETABLES_TABLE_ID,
-        queries: [Query.equal("farmerId", farmerId)],
-      });
-    } catch (error) {
-      console.error("List farmer vegetables error:", error);
-      throw error;
-    }
-  }
-
-  // 4️⃣ Delete vegetable
-  async deleteVegetable(rowId) {
-    try {
-      return await this.tablesDB.deleteRow({
-        databaseId: APPWRITE_DATABASE_ID,
-        tableId: SELL_VEGETABLES_TABLE_ID,
-        rowId,
-      });
-    } catch (error) {
-      console.error("Delete vegetable error:", error);
-      throw error;
-    }
-  }
 }
 
 

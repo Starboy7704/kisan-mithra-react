@@ -6,11 +6,11 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     { name: "Cart", key: "cart" },
     { name: "Orders", key: "Orders" },
     { name: "Payments", key: "Payments" },
-    { name: "Profile", key: "Profile" },
+    // { name: "Profile", key: "Profile" },
     { name: "Profile", key: "UserProfile" },
   ];
   return (
-    <aside className="w-60 min-h-screen bg-green-700 text-white p-4">
+    <aside className=" fixed top-0 left-0 w-64 h-screen min-h-screen bg-green-700 text-white p-4">
       <h2 className="text-xl font-bold mb-6 border-b border-green-500 pb-2">Customer Menu</h2>
 
       <div className="space-y-2">
