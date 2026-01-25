@@ -13,11 +13,15 @@ import { Label } from "@/components/ui/label"
 import { useNavigate, useLocation } from "react-router"
 import { useState, useEffect } from "react"
 import AppwriteAccount from "../Appwrite/Account.Services"
+import { APPWRITE_USERPROFILES_TABLE_ID } from "../Utils/Appwrite/constants.js"
+import { ID, TablesDB } from "appwrite"
+import AppwriteTablesDB from "../Appwrite/TableDB.services"
 
 function SignupPage() {
   const navigate = useNavigate()
   const location = useLocation()
-  const appwriteAccount = new AppwriteAccount()
+  const appwriteAccount = new AppwriteAccount();
+  const appwriteTablesDb = new AppwriteTablesDB();
 
   const role = location.state?.role
 
@@ -84,8 +88,15 @@ function SignupPage() {
       email,
       password,
       fullname,
-      role
-    )
+      role,
+    );
+    await appwriteTablesDb.createRow(APPWRITE_USERPROFILES_TABLE_ID, {
+      userId: result.$id,
+      fullName: fullname,
+      email: email,
+      role: role,
+    });
+
 
     if (result?.status) {
       navigate("/login")
