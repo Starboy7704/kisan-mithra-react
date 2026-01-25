@@ -41,10 +41,9 @@ function LogInPage() {
         },
         onSuccess : (user)=>{
             setCurrentUser(user);
-            console.log("User data:", user);
-            const userRole = user?.prefs?.role || user?.role;
-            console.log("User role:", userRole);
-            
+            console.log(setCurrentUser);
+            const userRole  = user?.prefs?.role || user?.role;
+            console.log(userRole);
             if(userRole === "FARMER"){
                 navigate("/farmer");
             } else if (userRole === "AGRI_EXPERT") {

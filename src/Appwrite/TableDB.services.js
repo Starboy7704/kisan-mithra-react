@@ -1,7 +1,6 @@
 import { TablesDB, ID } from "appwrite";
 import appwriteClient from ".";
 import { APPWRITE_DATABASE_ID } from "../Utils/Appwrite/constants.js";
-// import SellVegetables from "../pages/Dasboards/FarmerDashboard/Sections/SellVegetables.js";
 
 class AppwriteTablesDB {
   constructor() {
@@ -23,11 +22,12 @@ class AppwriteTablesDB {
     }
   }
 
-  async listRows(tableId) {
+  async listRows(tableId,queries = []) {
     try {
       const result = await this.tablesDB.listRows({
         databaseId: APPWRITE_DATABASE_ID,
         tableId: tableId,
+        queries : queries,
       });
       return result;
     } catch (error) {
@@ -38,7 +38,4 @@ class AppwriteTablesDB {
 
 
 }
-
-
-
 export default AppwriteTablesDB;

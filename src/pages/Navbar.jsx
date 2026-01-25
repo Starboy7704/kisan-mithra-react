@@ -45,7 +45,7 @@ const Navbar = () => {
             {/* Login Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="rounded-full bg-green-700 px-6 text-white hover:bg-green-800 shadow-md">
+                <Button className="rounded-full bg-green-700 px-6 text-white hover:bg-green-800 shadow-md cursor-pointer">
                   Login
                 </Button>
               </DropdownMenuTrigger>
@@ -54,13 +54,13 @@ const Navbar = () => {
                 align="end"
                 className="w-48 rounded-xl p-1 shadow-lg"
               >
-                <DropdownMenuItem onClick={() => navigate("/login")}>
+                <DropdownMenuItem className={"cursor-pointer"} onClick={() => navigate("/login")}>
                   Farmer Login
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate("/login")}>
+                <DropdownMenuItem className={"cursor-pointer"} onClick={() => navigate("/login")}>
                   Customer Login
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => navigate("/login")}>
+                <DropdownMenuItem className={"cursor-pointer"} onClick={() => navigate("/login")}>
                   Agri Doctor Login
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -70,7 +70,7 @@ const Navbar = () => {
             <Button
               variant="outline"
               onClick={() => navigate("/LoginSelection")}
-              className="rounded-full px-6 border-green-700 text-green-700 hover:bg-green-700 hover:text-white"
+              className=" cursor-pointer rounded-full px-6 border-green-700 text-green-700 hover:bg-green-700 hover:text-white "
             >
               Register
             </Button>
