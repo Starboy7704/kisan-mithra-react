@@ -12,7 +12,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
   ];
 
   return (
-    <aside className="fixed top-0 left-0 h-screen w-60 min-h-screen bg-green-700 text-white p-4">
+    <aside className="fixed top-0 left-0 h-screen w-66 min-h-screen bg-green-700 text-white p-4">
       {/* Title */}
       <h2 className="text-xl font-bold mb-6 border-b border-green-500 pb-2">
         🩺 Doctor Menu

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import AppwriteTablesDB from "../../../../Appwrite/TableDB.services.js";
 import { APPWRITE_VEGETABLES_TABLE_ID } from "../../../../Utils/Appwrite/constants.js";
 import Spinner from "@/components/ui/spinner";
+import PleaseWait from "@/src/pleasewait.jsx";
 import VegetableCard from "@/src/components/VegetableCard";
 
 const Browseproducts = () => {
@@ -31,9 +32,14 @@ const Browseproducts = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Spinner className="size-10 text-green-600 animate-spin" />
-      </div>
+     <div className="flex items-center justify-center min-h-screen bg-green-100">
+   <div className="flex items-center gap-3 scale-100 border border-green-400 rounded-lg px-4 py-2 bg-white/70 shadow-sm">
+  <Spinner />
+  <PleaseWait/>
+
+</div>
+
+  </div>
     );
   }
 

@@ -39,21 +39,24 @@ const DoctorDashboard = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar */}
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+   <div className="flex h-screen bg-gray-100">
+  {/* ✅ Fixed Sidebar */}
+  <div className="w-60 fixed top-0 left-0 h-screen">
+    <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+  </div>
 
-      {/* Main Content */}
-      <main className=" ml-60 flex-1 p-6 bg-white">
-        <h1 className="text-5xl font-bold text-gray-800 mb-4 text-center">
-          Doctor Dashboard 🩺
-        </h1>
+  {/* ✅ Main Content Scroll */}
+  <main className="ml-64 flex-1 h-screen overflow-y-auto p-6 bg-white">
+    <h1 className="text-5xl font-bold text-gray-800 mb-4 text-center">
+      Doctor Dashboard 🩺
+    </h1>
 
-        <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-          {renderContent()}
-        </div>
-      </main>
+    <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+      {renderContent()}
     </div>
+  </main>
+</div>
+
   );
 };
 
