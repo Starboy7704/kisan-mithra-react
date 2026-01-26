@@ -1,50 +1,27 @@
-import AppwriteAccount from "./Appwrite/Account.Services";
-import { useNavigate } from "react-router";
-import Herosection from "./pages/Herosection";
-// import Spinner from "@/components/ui/spinner";
-import { useQuery } from "@tanstack/react-query";
 import Spinner from "@/components/ui/spinner";
-import useAuthStore from "@/store/authStore";
+import { useEffect, useState } from "react";
+import HeroSection from "./pages/Herosection";
+import PleaseWait from "./pleasewait";
 
-function App() {
-  const appwriteAccount = new AppwriteAccount();
-  const navigate = useNavigate();
+export default function SpinnerOnly() {
+  const [loading, setLoading] = useState(true);
 
-  const currentUser = useAuthStore((state)=>state.currentUser)
-  const setCurrentUser = useAuthStore((state) => state.setCurrentUser)
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
-  console.log("Component Renders...")
-  console.log(currentUser); // null
-  // console.log(setCurrentUser); 
+  return loading ? (
+  <div className="flex items-center justify-center min-h-screen bg-green-100">
+   <div className="flex items-center gap-3 scale-100 border border-green-400 rounded-lg px-4 py-2 bg-white/70 shadow-sm">
+  <Spinner />
+  <PleaseWait/>
 
-  //Tanstack
-  const { isPending, data } = useQuery({
-    queryKey: ["authUser"],
-    //query function
-    queryFn: async () => {
-      await new Promise((resolve) => setTimeout(resolve, 0));
-      const user = await appwriteAccount.getAppwriteUser();
-      return user ?? null;
-    },
-    
-    onSuccess: (user) => {
-      setCurrentUser(user);
-      if (!user) {
-        console.log("user session not found! at home route");
-        navigate("/login");
-      }
-    },
-  });
+</div>
 
-  if (isPending) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-green-50 to-emerald-100">
-        <Spinner className="size-10 text-emerald-600 animate-spin" />
-      </div>
-    );
-  }
+  </div>
+) : (
+  <HeroSection />
+);
 
-  return <Herosection />;
 }
-
-export default App;

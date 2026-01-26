@@ -36,7 +36,7 @@ function LogInPage() {
             );
             const user = await appwriteAccount.getAppwriteUser();
             console.log("session ->", session, "user ->", user);
-            // console.log(user)
+            console.log(user)
             return user;
         },
         onSuccess : (user)=>{
@@ -46,20 +46,20 @@ function LogInPage() {
             console.log(userRole);
             if(userRole === "FARMER"){
                 navigate("/farmer");
-            } else if (userRole === "AGRI_EXPERT") {
+            }else if (userRole === "AGRI_EXPERT") {
                 navigate("/doctor");
-            } else if(userRole === "CUSTOMER"){
-                navigate("/customer");
-            } else if(userRole === "ADMIN"){
-                navigate("/admin");
-            } else {
-                console.warn("Unknown user role:", userRole);
+            } else if(userRole==="CUSTOMER"){
+                navigate("/customer")
+            }
+            else if(userRole === "ADMIN"){
+                navigate("/admin")
+            }
+            else {
                 navigate("/");
             }
-        },
-        onError: (error) => {
-            console.error("Login error:", error);
+
         }
+        
     })
     
     return (
