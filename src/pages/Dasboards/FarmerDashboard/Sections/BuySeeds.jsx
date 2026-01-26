@@ -25,18 +25,19 @@ const BuySeeds = () => {
     fetchSeeds();
   }, []);
 
-  if (loading) return 
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-green-50 to-emerald-100">
-        <Spinner className="size-10 text-emerald-600 animate-spin" />
-      </div>
 
   return (
     <>
+    {loading ?
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-green-50 to-emerald-100">
+      <Spinner className="size-10 text-emerald-600 animate-spin" />
+    </div>  : 
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {seeds.map((seed) => (
           <SeedCard key={seed.$id} seed={seed} />
         ))}
       </section>
+    }
     </>
   );
 };
