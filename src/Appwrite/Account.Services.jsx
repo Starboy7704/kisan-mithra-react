@@ -32,7 +32,7 @@ class AppwriteAccount {
   async getAppwriteUser(){
     try{
    const result= await this.account.get();
-   console.log(result)
+  //  console.log(result)
    return result;
     }catch(error){
         console.log("User Session not found!",error)
