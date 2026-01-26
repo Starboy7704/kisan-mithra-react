@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import DoctorCard from "@/src/components/seeds/DoctorCard";
-import BookDoctor from "@/src/components/seeds/BookDoctor";
+import DoctorCard from "@/src/components/DoctorCard";
+import AppointmentRequest from "@/src/components/seeds/AppointmentRequest.jsx";
 import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
 import { APPWRITE_USERPROFILES_TABLE_ID } from "@/src/Utils/Appwrite/constants";
 import { Query } from "appwrite";
@@ -47,7 +47,7 @@ const FarmerDashboard = () => {
 
       {/* Booking Form */}
       {selectedDoctorId && (
-        <BookDoctor
+        <AppointmentRequest
           doctorId={selectedDoctorId}
           onClose={() => setSelectedDoctorId(null)}
         />

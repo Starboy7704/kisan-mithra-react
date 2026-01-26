@@ -4,7 +4,7 @@ import AppwriteStorage from "@/src/Appwrite/Storage.Services"
 import { APPWRITE_APPOINTMENTS_IMAGES_BUCKET_ID, APPWRITE_APPOINTMENTS_TABLE_ID } from "@/src/Utils/Appwrite/constants";
 import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
 
-const BookDoctor = ({ doctorId, onClose }) => {
+const AppointmentRequest = ({ doctorId, onClose }) => {
   const currentUser = useAuthStore((state) => state.currentUser);
 
   const [issue, setIssue] = useState("");
@@ -110,4 +110,4 @@ const BookDoctor = ({ doctorId, onClose }) => {
   );
 };
 
-export default BookDoctor;
+export default AppointmentRequest;
