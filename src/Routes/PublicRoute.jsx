@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import AppwriteAccount from "../Appwrite/Account.Services";
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/ui/spinner";
+import PleaseWait from "../pleasewait";
 // import { Spinner } from "@/components/ui/spinner";
 
 function PublicRoute({ children }) {
@@ -35,7 +36,7 @@ function PublicRoute({ children }) {
           className="flex items-center gap-2"
         >
           <Spinner/>
-          Please wait
+          <PleaseWait/>
         </Button>
       </div>
     );

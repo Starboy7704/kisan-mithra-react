@@ -30,11 +30,14 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-green-50">
+    <div className="min-h-screen bg-green-50">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      <main className="flex-1 p-8 bg-white rounded-l-2xl shadow-inner">
-        <h1 className="text-3xl font-bold text-green-800 mb-6">Admin Dashboard 🛠️</h1>
+      {/* ✅ margin-left added here */}
+      <main className="ml-64 p-8 bg-white min-h-screen rounded-l-2xl shadow-inner">
+        <h1 className="text-3xl font-bold text-green-800 mb-6 text-center">
+          Admin Dashboard 🛠️
+        </h1>
 
         <div className="border-t border-green-200 pt-4">{renderContent()}</div>
       </main>
