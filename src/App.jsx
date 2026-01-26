@@ -12,16 +12,14 @@ export default function SpinnerOnly() {
   }, []);
 
   return loading ? (
-  <div className="flex items-center justify-center min-h-screen bg-green-100">
-   <div className="flex items-center gap-3 scale-100 border border-green-400 rounded-lg px-4 py-2 bg-white/70 shadow-sm">
-  <Spinner />
-  <PleaseWait/>
-
-</div>
-
-  </div>
-) : (
-  <HeroSection />
-);
+    <div className="flex items-center justify-center min-h-screen bg-green-100">
+      <div className="flex items-center gap-3 scale-100 border border-green-400 rounded-lg px-4 py-2 bg-white/70 shadow-sm">
+        <Spinner />
+        <PleaseWait />
+      </div>
+    </div>
+  ) : (
+    <HeroSection />
+  );
 
 }

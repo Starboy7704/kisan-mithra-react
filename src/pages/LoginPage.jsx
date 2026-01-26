@@ -34,6 +34,7 @@ function LogInPage() {
                 email,
                 password
             );
+            // console.log(session);
             const user = await appwriteAccount.getAppwriteUser();
             console.log("session ->", session, "user ->", user);
             console.log(user)
