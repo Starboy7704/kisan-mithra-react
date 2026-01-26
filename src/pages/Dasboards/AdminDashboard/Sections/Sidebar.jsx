@@ -11,7 +11,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
   ];
 
   return (
-    <aside className="fixed top-0 left-0 w-64 h-screen bg-green-700 text-white flex flex-col p-8 rounded-r-2xl shadow-lg">
+    <aside className="fixed top-0 left-0 w-66 h-screen bg-green-700 text-white flex flex-col p-8 rounded-r-2xl shadow-lg">
       <h2 className="text-2xl font-bold mb-6 text-center border-b border-green-500 pb-2">
         🌱 Admin Menu
       </h2>

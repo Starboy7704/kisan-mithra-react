@@ -9,25 +9,29 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     { name: "Profile", key: "UserProfile" },
   ];
   return (
-    <aside className="w-60 min-h-screen bg-green-700 text-white p-4">
-      <h2 className="text-xl font-bold mb-6 border-b border-green-500 pb-2">Customer Menu</h2>
+   <aside className="w-66 min-h-screen bg-green-700 text-white p-4 shadow-lg">
 
-      <div className="space-y-2">
-        {menu.map((item) => (
-          <button
-            key={item.key}
-            onClick={() => setActiveTab(item.key)}
-            className={`w-full text-left px-4 py-2 rounded-md text-sm font-medium transition ${
-              activeTab === item.key
-                ? "bg-green-500"
-                : "bg-green-600 hover:bg-green-500"
-            }`}
-          >
-            {item.name}
-          </button>
-        ))}
-      </div>
-    </aside>
+  <h2 className="text-xl font-bold mb-6 border-b border-green-500 pb-2">
+    Customer Menu
+  </h2>
+
+  <div className="space-y-2">
+    {menu.map((item) => (
+      <button
+        key={item.key}
+        onClick={() => setActiveTab(item.key)}
+        className={`w-full text-left px-4 py-2 rounded-md text-sm font-medium transition ${
+          activeTab === item.key
+            ? "bg-green-500"
+            : "bg-green-600 hover:bg-green-500"
+        }`}
+      >
+        {item.name}
+      </button>
+    ))}
+  </div>
+</aside>
+
   );
 };
 
