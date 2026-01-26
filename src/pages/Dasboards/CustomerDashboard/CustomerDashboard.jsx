@@ -34,15 +34,23 @@ const CustomerDashboard = () => {
   };
 
   return(
-      <div className="flex min-h-screen bg-gray-100">
-        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-        <main className="flex-1 ml-62 p-6 bg-white">
-          <h1 className="text-5xl font-bold text-gray-800 mb-4 text-center">Customer Dashboard🤵</h1>
-          <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
-            {renderContent()}
-          </div>
-        </main>
-      </div>
+     <div className="flex bg-gray-100">
+
+  <div className="w-100 h-screen fixed top-0 left-0">
+    <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+  </div>
+
+  <main className="ml-66 flex-1 h-screen overflow-y-auto p-6 bg-white">
+    <h1 className="text-5xl font-bold text-gray-800 mb-4 text-center">
+      Customer Dashboard🤵
+    </h1>
+
+    <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+      {renderContent()}
+    </div>
+  </main>
+</div>
+
   )
 };
 
