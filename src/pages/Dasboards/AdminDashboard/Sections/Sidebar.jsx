@@ -11,23 +11,25 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
   ];
 
   return (
-    <aside className="w-65 h-screen bg-green-700 text-white flex flex-col p-8 rounded-r-2xl shadow-lg">
+    <aside className="fixed top-0 left-0 w-64 h-screen bg-green-700 text-white flex flex-col p-8 rounded-r-2xl shadow-lg">
       <h2 className="text-2xl font-bold mb-6 text-center border-b border-green-500 pb-2">
-      🌱 Admin Menu
+        🌱 Admin Menu
       </h2>
 
-      {/* <div className="space-y-2"> */}
-        {menu.map((item) => (
-          <button
-            key={item.key}
-            onClick={() => setActiveTab(item.key)}
-            className={`text-left px-4 py-2 mb-2 rounded-lg transition-all 
-            ${ activeTab === item.key ? "bg-green-500" : "hover:bg-green-600 hover:translate-x-1"}`}
-          >
-            {item.name}
-          </button>
-        ))}
-      {/* </div> */}
+      {menu.map((item) => (
+        <button
+          key={item.key}
+          onClick={() => setActiveTab(item.key)}
+          className={`text-left px-4 py-2 mb-2 rounded-lg transition-all 
+          ${
+            activeTab === item.key
+              ? "bg-green-500"
+              : "hover:bg-green-600 hover:translate-x-1"
+          }`}
+        >
+          {item.name}
+        </button>
+      ))}
     </aside>
   );
 };

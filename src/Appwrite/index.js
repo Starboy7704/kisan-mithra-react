@@ -8,4 +8,4 @@ const appwriteClient = new Client()
   .setProject(APPWRITE_PROJECT_ID);
 
 
-  export default appwriteClient
+  export default appwriteClient 

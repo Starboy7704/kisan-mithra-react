@@ -44,7 +44,7 @@ const DoctorDashboard = () => {
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Main Content */}
-      <main className="flex-1 p-6 bg-white">
+      <main className=" ml-60 flex-1 p-6 bg-white">
         <h1 className="text-5xl font-bold text-gray-800 mb-4 text-center">
           Doctor Dashboard 🩺
         </h1>

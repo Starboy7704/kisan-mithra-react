@@ -35,6 +35,7 @@ class AppwriteTablesDB {
       throw new Error(error.message);
     }
   }
-}
 
+
+}
 export default AppwriteTablesDB;
