@@ -36,6 +36,20 @@ class AppwriteTablesDB {
     }
   }
 
+  async updateRow(tableId, rowId, data) {
+  try {
+    return await this.tablesDB.updateRow({
+      databaseId: APPWRITE_DATABASE_ID,
+      tableId: tableId,
+      rowId: rowId,
+      data,
+    });
+  } catch (error) {
+    console.error("updateRow error", error);
+    throw error;
+  }
+}
+
 
 }
 export default AppwriteTablesDB;

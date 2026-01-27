@@ -20,7 +20,6 @@ class AppwriteStorage {
       throw error;
     }
   }
-
   getFileView(bucketId, fileId) {
     return this.storage.getFileView(bucketId, fileId);
   }
