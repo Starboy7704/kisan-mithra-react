@@ -24,12 +24,6 @@ const BuySeeds = () => {
 
     fetchSeeds();
   }, []);
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 67959f07fc19a3f55bff813a644c79673a733ca9
   return (
     <>
       {loading ? (
