@@ -3,6 +3,7 @@ import AppwriteAccount from "@/src/Appwrite/Account.Services";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import Spinner from "@/components/ui/spinner";
+import toast from "react-hot-toast";
 // import { Spinner } from "@/components/ui/spinner";
 
 const Logout = () => {
@@ -18,6 +19,9 @@ const Logout = () => {
     if (!result?.message) {
       setIsLoggingOut(false);
       navigate("/");
+      toast.success('You’ve been logged out. See you again soon!',{
+        icon:'👏'
+      })
     }
   }
   console.log("render and re-render");

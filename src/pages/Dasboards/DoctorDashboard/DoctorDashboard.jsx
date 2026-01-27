@@ -18,9 +18,6 @@ const DoctorDashboard = () => {
       case "Appointments":
         return <MyAppointments />;
 
-      // case "DoctorProfile":
-      //   return <DoctorProfile />;
-
       case "Chat":
         return <Chat />;
 

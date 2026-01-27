@@ -3,9 +3,11 @@ import { useState } from "react";
 import AppwriteStorage from "@/src/Appwrite/Storage.Services"
 import { APPWRITE_APPOINTMENTS_IMAGES_BUCKET_ID, APPWRITE_APPOINTMENTS_TABLE_ID } from "@/src/Utils/Appwrite/constants";
 import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
+import toast from "react-hot-toast";
 
-const AppointmentRequest = ({ doctorId, onClose }) => {
+const AppointmentCard = ({ doctorId, onClose }) => {
   const currentUser = useAuthStore((state) => state.currentUser);
+  // console.log("HELLO",currentUser);
 
   const [issue, setIssue] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
@@ -39,6 +41,7 @@ const AppointmentRequest = ({ doctorId, onClose }) => {
         APPWRITE_APPOINTMENTS_TABLE_ID,
         {
           farmerId: currentUser.$id,
+          farmerName: currentUser.name,
           doctorId,
           issue,
           appointmentDate,
@@ -47,7 +50,7 @@ const AppointmentRequest = ({ doctorId, onClose }) => {
         }
       );
 
-      alert("Appointment requested successfully ✅");
+      toast.success('Appointment requested successfully')
       onClose();
     } catch (error) {
       console.error(error);
@@ -110,4 +113,4 @@ const AppointmentRequest = ({ doctorId, onClose }) => {
   );
 };
 
-export default AppointmentRequest;
+export default AppointmentCard;

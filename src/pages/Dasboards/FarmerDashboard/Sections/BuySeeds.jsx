@@ -3,7 +3,6 @@ import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
 import { APPWRITE_SEEDS_TABLE_ID } from "@/src/Utils/Appwrite/constants";
 import SeedCard from "@/src/components/seeds/Card";
 import Spinner from "@/components/ui/spinner";
-import PleaseWait from "@/src/pleasewait";
 
 const BuySeeds = () => {
   const [seeds, setSeeds] = useState([]); // 👈 state
@@ -25,6 +24,12 @@ const BuySeeds = () => {
 
     fetchSeeds();
   }, []);
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 67959f07fc19a3f55bff813a644c79673a733ca9
   return (
     <>
       {loading ? (

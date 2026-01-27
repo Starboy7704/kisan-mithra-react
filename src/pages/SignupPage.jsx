@@ -14,8 +14,8 @@ import { useNavigate, useLocation } from "react-router"
 import { useState, useEffect } from "react"
 import AppwriteAccount from "../Appwrite/Account.Services"
 import { APPWRITE_USERPROFILES_TABLE_ID } from "../Utils/Appwrite/constants.js"
-import { ID, TablesDB } from "appwrite"
 import AppwriteTablesDB from "../Appwrite/TableDB.services"
+import toast from "react-hot-toast"
 
 function SignupPage() {
   const navigate = useNavigate()
@@ -82,7 +82,7 @@ function SignupPage() {
       }
     }
 
-    console.log("REGISTER PAYLOAD 👉", payload)
+    // console.log("REGISTER PAYLOAD ", payload)
 
     const result = await appwriteAccount.createAppwriteAccount(
       email,
@@ -99,6 +99,7 @@ function SignupPage() {
 
 
     if (result?.status) {
+      toast.success('Account created successfully! Please log in to continue.')
       navigate("/login")
     }
   }

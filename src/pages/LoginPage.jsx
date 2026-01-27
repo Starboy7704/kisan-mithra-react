@@ -15,6 +15,7 @@ import { useNavigate } from "react-router";
 import AppwriteAccount from "../appwrite/Account.services";
 import { useMutation } from "@tanstack/react-query";
 import useAuthStore from "@/store/authStore";
+import toast from "react-hot-toast";
 
 function LogInPage() {
     const [email, setEmail] = useState("");
@@ -58,6 +59,9 @@ function LogInPage() {
             else {
                 navigate("/");
             }
+            toast.success('Welcome back! You’re now logged in.',{
+                icon : '👏'
+            })
 
         }
         

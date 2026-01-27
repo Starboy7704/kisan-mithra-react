@@ -4,7 +4,6 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
   const menu = [
     { name: "Requests", key: "Requests" },
     { name: "My Appointments", key: "Appointments" },
-    { name: "Profile", key: "DoctorProfile" },
     { name: "Chat", key: "Chat" },
     { name: "Video", key: "VideoConsultation" },
     { name: "Payments", key: "Payments" },

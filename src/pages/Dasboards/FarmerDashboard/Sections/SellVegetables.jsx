@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import AppwriteTablesDB from "../../../../Appwrite/TableDB.services.js";
 import { APPWRITE_VEGETABLES_TABLE_ID } from "../../../../Utils/Appwrite/constants.js";
+import toast from "react-hot-toast";
 
 const SellVegetables = () => {
   const appwriteTablesDb = new AppwriteTablesDB();
@@ -46,7 +47,7 @@ const SellVegetables = () => {
         vegetableData
       );
       console.log("Vegetable listed:", result);
-      alert("Vegetable listed successfully.");
+      toast.success('Vegetable listed successfully.');
 
       // reset form
       setVegetableName("");
@@ -56,8 +57,9 @@ const SellVegetables = () => {
       setLocation("");  
       setDescription("");
     } catch (error) {
-      console.error("Failed to list vegetable:", error);
-      alert("Failed to list vegetable: " + (error.message || error));
+      // console.error("Failed to list vegetable:", error);
+      // alert("Failed to list vegetable: " + (error.message || error));
+      toast.error('Failed to list vegetable')
     }
   }
 
