@@ -6,6 +6,7 @@ import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
 
 const AppointmentCard = ({ doctorId, onClose }) => {
   const currentUser = useAuthStore((state) => state.currentUser);
+  // console.log("HELLO",currentUser);
 
   const [issue, setIssue] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
@@ -39,6 +40,7 @@ const AppointmentCard = ({ doctorId, onClose }) => {
         APPWRITE_APPOINTMENTS_TABLE_ID,
         {
           farmerId: currentUser.$id,
+          farmerName: currentUser.name,
           doctorId,
           issue,
           appointmentDate,
