@@ -1,5 +1,5 @@
 import AppwriteStorage from "@/src/Appwrite/Storage.Services";
-import { APPWRITE_APPOINTMENTS_IMAGES_BUCKET_ID } from "@/src/Utils/Appwrite/constants";
+import { APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID } from "@/src/Utils/Appwrite/constants";
 
 const ScheduledCard = ({
   farmerId,
@@ -35,7 +35,7 @@ const ScheduledCard = ({
             <img
               key={fileId}
               src={AppwriteStorage.getFileView(
-                APPWRITE_APPOINTMENTS_IMAGES_BUCKET_ID,
+                APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID,
                 fileId
               )}
               alt="Crop issue"

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../assets/Logo.png";
+import Logo from "../assets/logo1.png";
 
 import {
   DropdownMenu,
@@ -16,14 +16,14 @@ const Navbar = () => {
   return (
     <header className="sticky top-0 z-50">
       <nav className="backdrop-blur-md bg-linear-to-r from-emerald-100/80 to-green-100/80 border-b border-emerald-200">
-        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+        <div className="mx-auto max-w-7xl px-4 py-2 flex items-center justify-between">
           
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center">
             <img
               src={Logo}
               alt="Kisan Mitra Logo"
-              className="h-12 w-auto object-contain"
+              className="h-14 w-auto object-contain"
             />
           </Link>
 

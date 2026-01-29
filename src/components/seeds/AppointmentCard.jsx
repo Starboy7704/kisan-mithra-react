@@ -1,7 +1,10 @@
 import useAuthStore from "@/store/authStore";
 import { useState } from "react";
-import AppwriteStorage from "@/src/Appwrite/Storage.Services"
-import { APPWRITE_APPOINTMENTS_IMAGES_BUCKET_ID, APPWRITE_APPOINTMENTS_TABLE_ID } from "@/src/Utils/Appwrite/constants";
+import AppwriteStorage from "@/src/Appwrite/Storage.Services";
+import {
+  APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID,
+  APPWRITE_APPOINTMENTS_TABLE_ID,
+} from "@/src/Utils/Appwrite/constants.js";
 import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
 import toast from "react-hot-toast";
 
@@ -31,26 +34,23 @@ const AppointmentCard = ({ doctorId, onClose }) => {
 
       for (const file of images) {
         const uploaded = await AppwriteStorage.uploadFile(
-          APPWRITE_APPOINTMENTS_IMAGES_BUCKET_ID,
+          APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID,
           file
         );
         imageIds.push(uploaded.$id);
       }
 
-      await appwriteTablesDB.createRow(
-        APPWRITE_APPOINTMENTS_TABLE_ID,
-        {
-          farmerId: currentUser.$id,
-          farmerName: currentUser.name,
-          doctorId,
-          issue,
-          appointmentDate,
-          imageIds,
-          status: "pending",
-        }
-      );
+      await appwriteTablesDB.createRow(APPWRITE_APPOINTMENTS_TABLE_ID, {
+        farmerId: currentUser.$id,
+        farmerName: currentUser.name,
+        doctorId,
+        issue,
+        appointmentDate,
+        imageIds,
+        status: "pending",
+      });
 
-      toast.success('Appointment requested successfully')
+      toast.success("Appointment requested successfully");
       onClose();
     } catch (error) {
       console.error(error);
@@ -62,9 +62,7 @@ const AppointmentCard = ({ doctorId, onClose }) => {
 
   return (
     <div className="mt-10 max-w-2xl mx-auto p-6 bg-white rounded-xl shadow">
-      <h2 className="text-2xl font-semibold mb-6">
-        Book Doctor Appointment
-      </h2>
+      <h2 className="text-2xl font-semibold mb-6">Book Doctor Appointment</h2>
 
       <form onSubmit={handleAppointmentSubmit} className="space-y-4">
         <textarea

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
 import { APPWRITE_SEEDS_TABLE_ID } from "@/src/Utils/Appwrite/constants";
 import SeedCard from "@/src/components/seeds/Card";
+import PleaseWait from "@/src/pleasewait";
 import Spinner from "@/components/ui/spinner";
 
 const BuySeeds = () => {
@@ -24,21 +25,22 @@ const BuySeeds = () => {
 
     fetchSeeds();
   }, []);
-
-
-
   return (
     <>
-    {loading ?
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-green-50 to-emerald-100">
-      <Spinner className="size-10 text-emerald-600 animate-spin" />
-    </div>  : 
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {seeds.map((seed) => (
-          <SeedCard key={seed.$id} seed={seed} />
-        ))}
-      </section>
-    }
+      {loading ? (
+        <div className="flex items-center justify-center min-h-screen bg-green-100">
+          <div className="flex items-center gap-3 border border-green-400 rounded-lg px-4 py-2 bg-white/70 shadow-sm">
+            <Spinner />
+            <PleaseWait />
+          </div>
+        </div>
+      ) : (
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {seeds.map((seed) => (
+            <SeedCard key={seed.$id} seed={seed} />
+          ))}
+        </section>
+      )}
     </>
   );
 };
