@@ -1,5 +1,5 @@
 import AppwriteStorage from "@/src/Appwrite/Storage.Services";
-import { APPWRITE_APPOINTMENTS_IMAGES_BUCKET_ID } from "../Utils/Appwrite/constants";
+import { APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID} from "../Utils/Appwrite/constants";
 
 const RequestCard = ({ farmerId, farmerName, issue, imageIds, onAccept, onReject }) => {
   return (
@@ -23,7 +23,7 @@ const RequestCard = ({ farmerId, farmerName, issue, imageIds, onAccept, onReject
             <img
               key={fileId}
               src={AppwriteStorage.getFileView(
-                APPWRITE_APPOINTMENTS_IMAGES_BUCKET_ID,
+                APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID,
                 fileId,
               )}
               alt="Crop issue"

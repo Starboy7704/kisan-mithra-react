@@ -43,7 +43,7 @@ const FarmerDashboard = () => {
 
   {/* ✅ Main Content */}
   <main className="ml-60 flex-1 h-screen overflow-y-auto p-8 bg-white rounded-l-2xl shadow-inner">
-    <h1 className="text-3xl font-bold text-green-800 mb-6">
+    <h1 className="text-3xl font-bold text-green-800 mb-6 text-center">
       Farmer Dashboard 🌾
     </h1>
 

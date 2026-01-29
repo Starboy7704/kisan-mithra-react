@@ -1,74 +1,69 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
 import AppwriteTablesDB from "../../../../Appwrite/TableDB.services.js";
-
-const APPWRITE_PESTICIDES_TABLE_ID =import.meta.env.VITE_APPWRITE_PESTICIDES_TABLE_ID;
-
+import AppwriteStorage from "../../../../Appwrite/Storage.Services.jsx"
+import toast from "react-hot-toast"
+import { APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID ,APPWRITE_PESTICIDES_TABLE_ID} from "@/src/Utils/Appwrite/constants.js";
 const AddPesticide = () => {
   const TablesDB = new AppwriteTablesDB();
 
-  const [pesticideName, setPesticideName] = useState("");
-  const [category, setCategory] = useState("");
-  const [brand, setBrand] = useState("");
-  const [cropType, setCropType] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [unit, setUnit] = useState("ml");
-  const [pricePerUnit, setPricePerUnit] = useState("");
-  const [usageInstructions, setUsageInstructions] = useState("");
-  const [safetyPrecautions, setSafetyPrecautions] = useState("");
-  const [manufacturer, setManufacturer] = useState("");
-  const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting }
+  } = useForm({
+    defaultValues: {
+      unit: "ml"
+    }
+  });
 
-  async function handlePesticideFormSubmission(e) {
-    e.preventDefault();
-    setLoading(true);
+  async function onSubmit(data) {
+    const imageFile = data.image?.[0]; // 📸 uploaded image
 
-    const newPesticide = {
-      pesticideName,
-      category,
-      brand,
-      cropType,
-      quantity: quantity ? Number(quantity) : null,
-      unit,
-      pricePerUnit: pricePerUnit ? Number(pricePerUnit) : null,
-      usageInstructions,
-      safetyPrecautions,
-      manufacturer,
-      status: "available", 
-      createdBy: "admin",
-    };
-
-    if (!APPWRITE_PESTICIDES_TABLE_ID) {
-      alert(
-        "APPWRITE_PESTICIDES_TABLE_ID is not set. Please add VITE_APPWRITE_PESTICIDES_TABLE_ID to your .env and restart the dev server."
-      );
-      setLoading(false);
+     if (!imageFile) {
+      toast.error("Please upload an image");
       return;
     }
 
-    try {
-      const result = await TablesDB.createRow(
+    try{
+      const uploaded=await AppwriteStorage.uploadFile(APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID,imageFile);
+      const imageId=uploaded.$id;
+    
+    const newPesticide = {
+      pesticideName: data.pesticideName,
+      category: data.category,
+      brand: data.brand,
+      cropType: data.cropType,
+      quantity: Number(data.quantity),
+      unit: data.unit,
+      pricePerUnit: Number(data.pricePerUnit),
+      usageInstructions: data.usageInstructions || "",
+      safetyPrecautions: data.safetyPrecautions || "",
+      manufacturer: data.manufacturer || "",
+      status: "available",
+      createdBy: "admin",
+      imageId,
+      // image will be uploaded to storage separately
+    };
+
+    console.log("Selected image:", imageFile);
+
+    if (!APPWRITE_PESTICIDES_TABLE_ID) {
+    toast.error("APPWRITE_PESTICIDES_TABLE_ID is not set.");
+      return;
+    }
+
+      await TablesDB.createRow(
         APPWRITE_PESTICIDES_TABLE_ID,
         newPesticide
       );
-      console.log("Appwrite pesticide product record:", result);
       alert("Pesticide saved successfully.");
-
-      setPesticideName("");
-      setCategory("");
-      setBrand("");
-      setCropType("");
-      setQuantity("");
-      setUnit("ml");
-      setPricePerUnit("");
-      setUsageInstructions("");
-      setSafetyPrecautions("");
-      setManufacturer("");
+      reset(); // 🔥 resets entire form including file input
     } catch (error) {
       console.error("Failed to create pesticide row:", error);
-      alert("Failed to save pesticide: " + (error.message || error));
-    } finally {
-      setLoading(false);
+      toast.error("Failed to save pesticide");
     }
   }
 
@@ -77,70 +72,72 @@ const AddPesticide = () => {
       <h2 className="text-2xl font-semibold mb-6">Add Pesticide Product</h2>
 
       <form
-        onSubmit={handlePesticideFormSubmission}
+        onSubmit={handleSubmit(onSubmit)}
         className="grid grid-cols-1 md:grid-cols-2 gap-4"
       >
+        {/* Pesticide Name */}
         <div>
           <label className="block text-sm font-medium mb-1">
             Pesticide Name *
           </label>
           <input
-            value={pesticideName}
-            onChange={(e) => setPesticideName(e.target.value)}
-            placeholder="e.g. Corigen"
-            required
+            {...register("pesticideName", { required: "Required" })}
             className="w-full border rounded px-3 py-2"
+            placeholder="e.g. Corigen"
           />
+          {errors.pesticideName && (
+            <p className="text-red-500 text-sm">{errors.pesticideName.message}</p>
+          )}
         </div>
 
+        {/* Category */}
         <div>
           <label className="block text-sm font-medium mb-1">Category *</label>
           <input
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            placeholder="e.g. Insecticide"
-            required
+            {...register("category", { required: "Required" })}
             className="w-full border rounded px-3 py-2"
+            placeholder="e.g. Insecticide"
           />
         </div>
 
+        {/* Brand */}
         <div>
           <label className="block text-sm font-medium mb-1">Brand</label>
           <input
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
-            placeholder="e.g. FMC"
+            {...register("brand")}
             className="w-full border rounded px-3 py-2"
+            placeholder="e.g. FMC"
           />
         </div>
 
+        {/* Crop Type */}
         <div>
           <label className="block text-sm font-medium mb-1">Crop Type</label>
           <input
-            value={cropType}
-            onChange={(e) => setCropType(e.target.value)}
-            placeholder="e.g. Cotton"
+            {...register("cropType")}
             className="w-full border rounded px-3 py-2"
+            placeholder="e.g. Cotton"
           />
         </div>
 
+        {/* Quantity */}
         <div>
           <label className="block text-sm font-medium mb-1">Quantity *</label>
           <input
             type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            placeholder="e.g. 250"
-            required
+            {...register("quantity", {
+              required: "Required",
+              min: { value: 1, message: "Must be positive" }
+            })}
             className="w-full border rounded px-3 py-2"
           />
         </div>
 
+        {/* Unit */}
         <div>
           <label className="block text-sm font-medium mb-1">Unit *</label>
           <select
-            value={unit}
-            onChange={(e) => setUnit(e.target.value)}
+            {...register("unit")}
             className="w-full border rounded px-3 py-2"
           >
             <option value="ml">ml</option>
@@ -149,59 +146,79 @@ const AddPesticide = () => {
           </select>
         </div>
 
+        {/* Price */}
         <div>
           <label className="block text-sm font-medium mb-1">
             Price Per Unit *
           </label>
           <input
             type="number"
-            value={pricePerUnit}
-            onChange={(e) => setPricePerUnit(e.target.value)}
-            placeholder="e.g. 1450"
-            required
+            {...register("pricePerUnit", { required: "Required" })}
             className="w-full border rounded px-3 py-2"
           />
         </div>
 
+        {/* Manufacturer */}
         <div>
-          <label className="block text-sm font-medium mb-1">Manufacturer</label>
+          <label className="block text-sm font-medium mb-1">
+            Manufacturer
+          </label>
           <input
-            value={manufacturer}
-            onChange={(e) => setManufacturer(e.target.value)}
-            placeholder="e.g. FMC India"
+            {...register("manufacturer")}
             className="w-full border rounded px-3 py-2"
           />
         </div>
 
+        {/* Usage Instructions */}
         <div className="md:col-span-2">
           <label className="block text-sm font-medium mb-1">
             Usage Instructions
           </label>
           <textarea
-            value={usageInstructions}
-            onChange={(e) => setUsageInstructions(e.target.value)}
+            {...register("usageInstructions")}
             className="w-full border rounded px-3 py-2"
           />
         </div>
 
+        {/* Safety Precautions */}
         <div className="md:col-span-2">
           <label className="block text-sm font-medium mb-1">
             Safety Precautions
           </label>
           <textarea
-            value={safetyPrecautions}
-            onChange={(e) => setSafetyPrecautions(e.target.value)}
+            {...register("safetyPrecautions")}
             className="w-full border rounded px-3 py-2"
           />
         </div>
 
+        {/* Image Upload (centered) */}
+        <div className="md:col-span-2 flex flex-col items-center">
+          <label className="text-sm font-medium mb-2">
+            Pesticide Image *
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            {...register("image"
+              // , { required: "Image is required" }
+            )}
+            className="border rounded px-3 py-2 w-full max-w-md"
+          />
+          {errors.image && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.image.message}
+            </p>
+          )}
+        </div>
+
+        {/* Submit */}
         <div className="md:col-span-2">
           <Button
             type="submit"
-            disabled={loading}
+            disabled={isSubmitting}
             className="w-full bg-emerald-600 text-white py-3 rounded-lg"
           >
-            {loading ? "Saving..." : "Save Pesticide Product"}
+            {isSubmitting ? "Saving..." : "Save Pesticide Product"}
           </Button>
         </div>
       </form>
