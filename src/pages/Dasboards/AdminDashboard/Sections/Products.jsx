@@ -66,7 +66,7 @@ const Products = () => {
 
   return (
     //add seeds product
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow border rounded-xl p-6 bg-gray-50">
+    <div className="max-w-4xl mx-auto p-6  rounded-xl shadow border  bg-gray-50">
       <h2 className="text-2xl font-semibold mb-6">Add Seed Product</h2>
 
       <form
