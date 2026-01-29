@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
 import { APPWRITE_SEEDS_TABLE_ID } from "@/src/Utils/Appwrite/constants";
 import SeedCard from "@/src/components/seeds/Card";
+import PleaseWait from "@/src/pleasewait";
 import Spinner from "@/components/ui/spinner";
 
 const BuySeeds = () => {

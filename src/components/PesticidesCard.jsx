@@ -28,6 +28,21 @@ const PesticidesCard = ({ pesticide }) => {
           Manufacturer: {pesticide.manufacturer}
         </p>
       )}
+         <div className="mt-auto pt-4 flex gap-3">
+        <button
+          onClick={() => onAddToCart?.(vegetable)}
+          className="w-1/2 bg-green-100 text-green-700 font-semibold py-2 rounded-lg hover:bg-green-200 transition"
+        >
+          Add to Cart 🛒
+        </button>
+
+        <button
+          onClick={() => onBuyNow?.(vegetable)}
+          className="w-1/2 bg-green-600 text-white font-semibold py-2 rounded-lg hover:bg-green-700 transition"
+        >
+          Buy Now 
+        </button>
+      </div>
     </div>
   );
 };
