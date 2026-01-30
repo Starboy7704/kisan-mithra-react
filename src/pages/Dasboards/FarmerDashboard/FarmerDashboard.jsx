@@ -28,6 +28,8 @@ const FarmerDashboard = () => {
         return <BookVehicles />;
       case "Orders":
         return <Orders />;
+         case "Cart":
+        return <Cart/>
       case "UserProfile":
         return <UserProfile/>;
       default:
@@ -50,7 +52,7 @@ const FarmerDashboard = () => {
     <div className="border-t border-green-200 pt-4">
       {renderContent()}
     </div>
-  </main>
+  </main>2
 </div>
 
   );
