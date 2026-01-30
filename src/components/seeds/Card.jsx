@@ -1,10 +1,7 @@
-
-//seedscard
-const Card = ({ seed }) => {
+const Card = ({ seed, addToCart = () => {}, onBuyNow }) => {
   return (
     <div className="group rounded-2xl border bg-white p-5 shadow-sm transition hover:shadow-lg">
-      
-      {/* Header */}
+
       <div className="mb-3">
         <h2 className="text-lg font-semibold text-gray-800">
           {seed.seedName}
@@ -14,7 +11,6 @@ const Card = ({ seed }) => {
         </p>
       </div>
 
-      {/* Tags */}
       <div className="flex flex-wrap gap-2 mb-4">
         <span className="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
           🌤 {seed.plantingSeason}
@@ -27,7 +23,6 @@ const Card = ({ seed }) => {
         </span>
       </div>
 
-      {/* Metrics */}
       <div className="grid grid-cols-2 gap-3 text-sm">
         <div className="rounded-lg bg-gray-50 p-3 text-center">
           <p className="text-gray-500">Growth</p>
@@ -44,10 +39,29 @@ const Card = ({ seed }) => {
         </div>
       </div>
 
-      {/* CTA */}
-      <button className="mt-5 w-full rounded-xl bg-green-600 py-2 text-sm font-semibold text-white transition hover:bg-green-700">
-        Buy Seeds
-      </button>
+      <div className="mt-4 flex gap-4">
+        <button
+          onClick={() =>
+            addToCart({
+              id: seed.$id,
+              name: seed.seedName,
+              price: seed.price,
+              type: "Seed",
+            })
+          }
+          className="flex-1 border border-green-600 text-green-700 font-medium px-6 py-3 rounded-xl hover:bg-green-50 transition"
+        >
+          Add to Cart
+        </button>
+
+        <button
+          onClick={() => onBuyNow?.(seed)}
+          className="flex-1 bg-green-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-green-700 transition shadow-md"
+        >
+          Buy Now
+        </button>
+      </div>
+
     </div>
   );
 };

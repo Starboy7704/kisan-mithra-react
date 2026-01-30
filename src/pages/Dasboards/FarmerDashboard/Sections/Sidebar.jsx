@@ -7,6 +7,7 @@ function Sidebar({ activeTab, setActiveTab }) {
     { name: "Buy Pesticides", key: "BuyPesticides" },
     { name: "Orders", key: "Orders" },
     { name: "Book Vehicles", key: "BookVehicles" },
+    {name:"Cart", key:"Cart"},
     {name:"Profile",key:"UserProfile"}
   ];
 

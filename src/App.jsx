@@ -17,7 +17,7 @@ export default function SpinnerOnly() {
         <Spinner />
         <PleaseWait />
       </div>
-    </div>
+    </div>  
   ) : (
     <HeroSection />
   );
