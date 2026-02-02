@@ -63,7 +63,8 @@ const MyAppointments = () => {
             farmerId={appointment.farmerId}
             farmerName={appointment.farmerName}
             issue={appointment.issue}
-            imageIds={appointment.imageIds}
+            appointmentDate={appointment.appointmentDate}
+            imageIds={appointment.imageIds} 
           />
         ))
       )}

@@ -5,8 +5,8 @@ import {
   APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID,
   APPWRITE_APPOINTMENTS_TABLE_ID,
 } from "@/src/Utils/Appwrite/constants.js";
-import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
 import toast from "react-hot-toast";
+import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
 
 const AppointmentCard = ({ doctorId, onClose }) => {
   const currentUser = useAuthStore((state) => state.currentUser);
@@ -54,7 +54,7 @@ const AppointmentCard = ({ doctorId, onClose }) => {
       onClose();
     } catch (error) {
       console.error(error);
-      alert("Failed to request appointment ❌");
+      toast.error("Failed to request appointment ❌");
     } finally {
       setLoading(false);
     }

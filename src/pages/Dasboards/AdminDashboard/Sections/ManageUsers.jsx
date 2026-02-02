@@ -1,11 +1,119 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
+import { APPWRITE_USERPROFILES_TABLE_ID } from "@/src/Utils/Appwrite/constants";
+import { Query } from "appwrite";
+import Spinner from "@/components/ui/spinner";
+
+const roles = ["ALL", "FARMER", "AGRI_EXPERT", "CUSTOMER"];
 
 const ManageUsers = () => {
+  const [users, setUsers] = useState([]);
+  const [activeRole, setActiveRole] = useState("ALL");
+  const [loading, setLoading] = useState(true);
+
+  const appwriteTablesDB = new AppwriteTablesDB();
+
+  useEffect(() => {
+    fetchUsers();
+  }, [activeRole]);
+
+  const fetchUsers = async () => {
+    try {
+      setLoading(true);
+
+      const queries =
+        activeRole === "ALL"
+          ? []
+          : [Query.equal("role", activeRole)];
+
+      const result = await appwriteTablesDB.listRows(
+        APPWRITE_USERPROFILES_TABLE_ID,
+        queries
+      );
+
+      setUsers(result.rows);
+    } catch (error) {
+      console.error("Failed to fetch users", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div>
-      <h2 className="text-2xl font-semibold mb-4">Manage Users</h2>
-      <p className="text-gray-600">List, search, and edit users here (placeholder).</p>
-      <div className="mt-4">{/* Future: Table or card list */}</div>
+    <div className="p-6 space-y-6">
+      {/* Header */}
+      <div>
+        <h2 className="text-2xl font-semibold">👥 Manage Users</h2>
+        <p className="text-gray-600">
+          View and manage farmers, customers, and agri experts
+        </p>
+      </div>
+
+      {/* Role Filters */}
+      <div className="flex gap-2">
+        {roles.map((role) => (
+          <button
+            key={role}
+            onClick={() => setActiveRole(role)}
+            className={`px-4 py-2 rounded-full text-sm border
+              ${
+                activeRole === role
+                  ? "bg-emerald-600 text-white"
+                  : "bg-white hover:bg-emerald-50"
+              }`}
+          >
+            {role.replace("_", " ")}
+          </button>
+        ))}
+      </div>
+
+      {/* Users Table */}
+      {loading ? (
+        <div className="flex justify-center min-h-50 items-center">
+          <Spinner className="size-10 text-emerald-600 animate-spin" />
+        </div>
+      ) : users.length === 0 ? (
+        <p className="text-gray-500">No users found.</p>
+      ) : (
+        <div className="overflow-x-auto bg-white border rounded-lg">
+          <table className="min-w-full text-sm">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="p-3 text-left">Name</th>
+                <th className="p-3 text-left">Email</th>
+                <th className="p-3 text-left">Role</th>
+                <th className="p-3 text-left">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {users.map((user) => (
+                <tr
+                  key={user.$id}
+                  className="border-t hover:bg-gray-50"
+                >
+                  <td className="p-3 font-medium">
+                    {user.fullName}
+                  </td>
+                  <td className="p-3 text-gray-600">
+                    {user.email}
+                  </td>
+                  <td className="p-3">
+                    <span className="px-2 py-1 rounded text-xs bg-emerald-100 text-emerald-700">
+                      {user.role.replace("_", " ")}
+                    </span>
+                  </td>
+                  <td className="p-3">
+                    <button className="text-emerald-600 hover:underline">
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };
