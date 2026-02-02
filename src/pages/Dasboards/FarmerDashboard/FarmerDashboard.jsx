@@ -6,6 +6,7 @@ import BuyPesticides from "./Sections/BuyPesticides";
 import BookVehicles from "./Sections/BookVehicles";
 import BuySeeds from "./Sections/BuySeeds";
 import Sidebar from "./Sections/Sidebar";
+import Cart from "./Sections/Cart";
 import Orders from "./Sections/Orders";
 import UserProfile from "../../UserProfile";
 
