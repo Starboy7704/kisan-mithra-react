@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Browseproducts from "./Sections/Browseproducts";
 import Cart from "./Sections/Cart";
-import Orders from "../FarmerDashboard/Sections/Orders";
+import Orders from "../CustomerDashboard/Sections/Orders";
 import Payments from "./Sections/Payments";
 import Sidebar from "./Sections/Sidebar";
 import UserProfile from "../../UserProfile";

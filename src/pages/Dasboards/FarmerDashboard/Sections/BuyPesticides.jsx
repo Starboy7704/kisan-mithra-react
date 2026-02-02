@@ -4,11 +4,12 @@ import {
   APPWRITE_PESTICIDES_TABLE_ID,
   APPWRITE_PURCHASES_TABLE_ID,
 } from "@/src/Utils/Appwrite/constants";
-import Spinner from "@/components/ui/spinner";
-import PleaseWait from "@/src/pleasewait";
 import PesticidesCard from "@/src/components/PesticidesCard";
+import PleaseWait from "@/src/pleasewait";
+import Spinner from "@/components/ui/spinner";
 import { Account } from "appwrite";
 import appwriteClient from "@/src/Appwrite";
+import toast from "react-hot-toast";
 
 const BuyPesticides = () => {
   const [pesticides, setPesticides] = useState([]);
@@ -20,11 +21,12 @@ const BuyPesticides = () => {
   useEffect(() => {
     const fetchPesticides = async () => {
       try {
-        const result = await tablesDB.listRows(APPWRITE_PESTICIDES_TABLE_ID);
+        const result = await tablesDB.listRows(
+          APPWRITE_PESTICIDES_TABLE_ID
+        );
         setPesticides(result.rows || []);
       } catch (error) {
-        console.error("Failed to fetch pesticides", error);
-        setPesticides([]);
+        console.error("listRows error", error);
       } finally {
         setLoading(false);
       }
@@ -33,34 +35,17 @@ const BuyPesticides = () => {
     fetchPesticides();
   }, []);
 
-const handleAddToCart = async (pesticide) => {
-  try {
-    const user = await account.get();
-
-    const price = Number(pesticide.p_requi); // 👈 FIX
-
-    await tablesDB.createRow(APPWRITE_PURCHASES_TABLE_ID, {
-      userId: user.$id,
-      productId: pesticide.$id,
-      productType: "pesticide",
-      productName: pesticide.pesticideName, // ✅ correct
-      quantity: 1,
-      unit: pesticide.unit,                 // ✅ exists
-      pricePerUnit: price,                  // ✅ float
-      totalPrice: price,
-      status: "cart",
-    });
-
-    alert("✅ Added to cart");
-  } catch (err) {
-    console.error("Add to cart failed:", err);
-  }
-};
-
-  // 📦 BUY NOW
-  const handleBuyNow = async (pesticide) => {
+  // 🛒 ADD TO CART
+  const handleAddToCart = async (pesticide) => {
     try {
       const user = await account.get();
+
+      const price = Number(pesticide.pricePerUnit);
+
+      if (Number.isNaN(price)) {
+        toast.error("Invalid pesticide price");
+        return;
+      }
 
       await tablesDB.createRow(APPWRITE_PURCHASES_TABLE_ID, {
         userId: user.$id,
@@ -69,16 +54,45 @@ const handleAddToCart = async (pesticide) => {
         productName: pesticide.pesticideName,
         quantity: 1,
         unit: pesticide.unit,
-        pricePerUnit: Number(pesticide.pricePerUnit),
-        totalPrice: Number(pesticide.pricePerUnit),
+        pricePerUnit: price,
+        totalPrice: price,
+        status: "cart",
+      });
 
+      toast.success("Pesticide added to cart");
+    } catch (error) {
+      console.error("Add pesticide to cart failed:", error);
+      toast.error("❌ Failed to add pesticide to cart");
+    }
+  };
+
+  // 📦 BUY NOW
+  const handleBuyNow = async (pesticide) => {
+    try {
+      const user = await account.get();
+      const price = Number(pesticide.pricePerUnit);
+
+      if (Number.isNaN(price)) {
+        toast.error("Invalid pesticide price");
+        return;
+      }
+
+      await tablesDB.createRow(APPWRITE_PURCHASES_TABLE_ID, {
+        userId: user.$id,
+        productId: pesticide.$id,
+        productType: "pesticide",
+        productName: pesticide.pesticideName,
+        quantity: 1,
+        unit: pesticide.unit,
+        pricePerUnit: price,
+        totalPrice: price,
         status: "ordered",
       });
 
-      alert("📦 Order placed successfully");
+      toast.success("Pesticide order placed successfully");
     } catch (error) {
-      console.error("Buy now failed", error);
-      alert("❌ Failed to place order");
+      console.error("Buy pesticide failed:", error);
+      toast.error("❌ Failed to place pesticide order");
     }
   };
 
@@ -88,18 +102,6 @@ const handleAddToCart = async (pesticide) => {
         <div className="flex items-center gap-3 border border-green-400 rounded-lg px-4 py-2 bg-white/70 shadow-sm">
           <Spinner />
           <PleaseWait />
-        </div>
-      </div>
-    );
-  }
-
-  if (pesticides.length === 0) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-green-50">
-        <div className="text-center p-6 border border-green-300 rounded-xl bg-white shadow-sm">
-          <h2 className="text-lg font-semibold text-green-700">
-            No Pesticides Found 🌱
-          </h2>
         </div>
       </div>
     );
