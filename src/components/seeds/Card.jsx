@@ -1,4 +1,4 @@
-const Card = ({ seed, addToCart = () => {}, onBuyNow }) => {
+const Card = ({ seed, onAddToCart, onBuyNow }) => {
   return (
     <div className="group rounded-2xl border bg-white p-5 shadow-sm transition hover:shadow-lg">
 
@@ -39,24 +39,17 @@ const Card = ({ seed, addToCart = () => {}, onBuyNow }) => {
         </div>
       </div>
 
-      <div className="mt-4 flex gap-4">
+            <div className="mt-auto pt-4 flex gap-3">
         <button
-          onClick={() =>
-            addToCart({
-              id: seed.$id,
-              name: seed.seedName,
-              price: seed.price,
-              type: "Seed",
-            })
-          }
-          className="flex-1 border border-green-600 text-green-700 font-medium px-6 py-3 rounded-xl hover:bg-green-50 transition"
+          onClick={() => onAddToCart(seed)}
+          className="w-1/2 bg-green-100 text-green-700 font-semibold py-2 rounded-lg hover:bg-green-200 transition"
         >
-          Add to Cart
+          Add to Cart 🛒
         </button>
 
         <button
-          onClick={() => onBuyNow?.(seed)}
-          className="flex-1 bg-green-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-green-700 transition shadow-md"
+          onClick={() => onBuyNow(seed)}
+          className="w-1/2 bg-green-600 text-white font-semibold py-2 rounded-lg hover:bg-green-700 transition"
         >
           Buy Now
         </button>
