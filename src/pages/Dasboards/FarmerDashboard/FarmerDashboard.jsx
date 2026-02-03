@@ -3,12 +3,13 @@ import TransferCrops from "./Sections/TransferCrops";
 import SellVegetables from "./Sections/SellVegetables";
 import BookDoctor from "./Sections/BookDoctor";
 import BuyPesticides from "./Sections/BuyPesticides";
-import BookVehicles from "./Sections/BookVehicles";
+// import BookVehicles from "./Sections/FarmerAppointments";
 import BuySeeds from "./Sections/BuySeeds";
 import Sidebar from "./Sections/Sidebar";
 import Cart from "./Sections/Cart";
 import Orders from "./Sections/Orders";
 import UserProfile from "../../UserProfile";
+import FarmerAppointments from "./Sections/FarmerAppointments";
 
 const FarmerDashboard = () => {
   const [activeTab, setActiveTab] = useState("BuySeeds");
@@ -25,8 +26,8 @@ const FarmerDashboard = () => {
         return <BookDoctor />;
       case "BuyPesticides":
         return <BuyPesticides />;
-      case "BookVehicles":
-        return <BookVehicles />;
+      case "Appointments":
+        return <FarmerAppointments />;
       case "Orders":
         return <Orders />;
          case "Cart":
@@ -53,7 +54,7 @@ const FarmerDashboard = () => {
     <div className="border-t border-green-200 pt-4">
       {renderContent()}
     </div>
-  </main>2
+  </main>
 </div>
 
   );

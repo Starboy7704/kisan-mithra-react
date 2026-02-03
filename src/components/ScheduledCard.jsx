@@ -7,6 +7,7 @@ const ScheduledCard = ({
   issue,
   appointmentDate,
   imageIds = [],
+  onChat,
 }) => {
   return (
     <div className="mt-4 p-4 border rounded-xl bg-white shadow-sm hover:shadow-md transition">
@@ -17,7 +18,8 @@ const ScheduledCard = ({
         </h3>
 
         <span className="text-sm text-gray-500">
-          📅 {appointmentDate
+          📅{" "}
+          {appointmentDate
             ? new Date(appointmentDate).toLocaleDateString()
             : "Date not set"}
         </span>
@@ -45,11 +47,20 @@ const ScheduledCard = ({
         </div>
       )}
 
-      {/* Status */}
-      <div className="mt-4">
+      {/* Footer */}
+      <div className="mt-4 flex items-center justify-between">
+        {/* Status */}
         <span className="inline-block px-3 py-1 text-sm rounded-full bg-emerald-100 text-emerald-700">
           Accepted
         </span>
+
+        {/* Chat Button */}
+        <button
+          onClick={onChat}
+          className="px-4 py-2 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition"
+        >
+          💬 Chat
+        </button>
       </div>
     </div>
   );
