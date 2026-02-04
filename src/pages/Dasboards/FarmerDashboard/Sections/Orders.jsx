@@ -22,14 +22,11 @@ const Orders = () => {
       try {
         const user = await account.get();
 
-        const res = await tablesDB.listRows(
-          APPWRITE_PURCHASES_TABLE_ID,
-          [
-            Query.equal("userId", user.$id),
-            Query.equal("status", "ordered"),
-            Query.orderDesc("$createdAt"),
-          ]
-        );
+        const res = await tablesDB.listRows(APPWRITE_PURCHASES_TABLE_ID, [
+          Query.equal("userId", user.$id),
+          Query.equal("status", "ordered"),
+          Query.orderDesc("$createdAt"),
+        ]);
 
         const grouped = {};
         (res.rows || []).forEach((item) => {
@@ -57,14 +54,10 @@ const Orders = () => {
     const newTotal = newQty * item.pricePerUnit;
 
     try {
-      await tablesDB.updateRow(
-        APPWRITE_PURCHASES_TABLE_ID,
-        item.$id,
-        {
-          quantity: newQty,
-          totalPrice: newTotal,
-        }
-      );
+      await tablesDB.updateRow(APPWRITE_PURCHASES_TABLE_ID, item.$id, {
+        quantity: newQty,
+        totalPrice: newTotal,
+      });
 
       setOrders((prev) => {
         const copy = { ...prev };
@@ -85,17 +78,13 @@ const Orders = () => {
     if (!window.confirm("Remove this item from order?")) return;
 
     try {
-      await tablesDB.updateRow(
-        APPWRITE_PURCHASES_TABLE_ID,
-        itemId,
-        { status: "cancelled" }
-      );
+      await tablesDB.updateRow(APPWRITE_PURCHASES_TABLE_ID, itemId, {
+        status: "cancelled",
+      });
 
       setOrders((prev) => {
         const copy = { ...prev };
-        copy[orderId] = copy[orderId].filter(
-          (i) => i.$id !== itemId
-        );
+        copy[orderId] = copy[orderId].filter((i) => i.$id !== itemId);
         if (copy[orderId].length === 0) {
           delete copy[orderId];
         }
@@ -129,16 +118,9 @@ const Orders = () => {
       startY: 40,
     });
 
-    const total = items.reduce(
-      (s, i) => s + i.quantity * i.pricePerUnit,
-      0
-    );
+    const total = items.reduce((s, i) => s + i.quantity * i.pricePerUnit, 0);
 
-    doc.text(
-      `Grand Total: ₹${total}`,
-      14,
-      doc.lastAutoTable.finalY + 10
-    );
+    doc.text(`Grand Total: ₹${total}`, 14, doc.lastAutoTable.finalY + 10);
 
     doc.save(`Invoice-${orderId}.pdf`);
   };
@@ -154,22 +136,17 @@ const Orders = () => {
 
   return (
     <div className="max-w-5xl mx-auto p-6">
-      <h2 className="text-2xl font-bold text-emerald-700 mb-6">
+      <h2 className="text-2xl font-bold text-emerald-700 mb-6 text-center">
         My Orders
       </h2>
 
       {Object.keys(orders).length === 0 && (
-        <p className="text-gray-500 text-center">
-          No orders found
-        </p>
+        <p className="text-gray-500 text-center">No orders found</p>
       )}
 
       {Object.keys(orders).map((orderId) => {
         const items = orders[orderId];
-        const total = items.reduce(
-          (s, i) => s + i.totalPrice,
-          0
-        );
+        const total = items.reduce((s, i) => s + i.totalPrice, 0);
 
         return (
           <div
@@ -211,9 +188,7 @@ const Orders = () => {
                         −
                       </button>
 
-                      <span className="font-semibold">
-                        {item.quantity}
-                      </span>
+                      <span className="font-semibold">{item.quantity}</span>
 
                       <button
                         onClick={() =>
@@ -231,13 +206,9 @@ const Orders = () => {
                   </div>
 
                   <div className="text-right">
-                    <p className="font-bold">
-                      ₹{item.totalPrice}
-                    </p>
+                    <p className="font-bold">₹{item.totalPrice}</p>
                     <button
-                      onClick={() =>
-                        removeItem(orderId, item.$id)
-                      }
+                      onClick={() => removeItem(orderId, item.$id)}
                       className="text-red-600 text-sm hover:underline mt-1"
                     >
                       Remove
@@ -246,12 +217,9 @@ const Orders = () => {
                 </div>
               ))}
             </div>
-
             {/* FOOTER */}
             <div className="mt-5 flex justify-between items-center">
-              <p className="text-lg font-bold">
-                Total: ₹{total}
-              </p>
+              <p className="text-lg font-bold">Total: ₹{total}</p>
 
               <button
                 onClick={() => toast.success("Payment gateway hook")}
