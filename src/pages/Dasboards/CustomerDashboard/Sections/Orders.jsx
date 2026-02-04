@@ -16,7 +16,7 @@ const CustomerOrders = () => {
   const tablesDB = new AppwriteTablesDB();
   const account = new Account(appwriteClient);
 
-  // 🔄 Fetch CUSTOMER ordered items
+  // 🔄 FETCH CUSTOMER ORDERS
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -40,7 +40,8 @@ const CustomerOrders = () => {
 
         setOrders(grouped);
       } catch (err) {
-        console.error("Fetch customer orders failed:", err);
+        console.error(err);
+        toast.error("Failed to load orders");
       } finally {
         setLoading(false);
       }
@@ -74,15 +75,14 @@ const CustomerOrders = () => {
         );
         return copy;
       });
-    } catch (err) {
-      console.error(err);
+    } catch {
       toast.error("Quantity update failed");
     }
   };
 
-  // 🗑 REMOVE ITEM (customer-side)
+  // ❌ CANCEL ITEM
   const removeItem = async (orderId, itemId) => {
-    if (!window.confirm("Remove this item from your order?")) return;
+    if (!window.confirm("Cancel this item?")) return;
 
     try {
       await tablesDB.updateRow(
@@ -101,28 +101,23 @@ const CustomerOrders = () => {
       });
 
       toast.success("Item cancelled");
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to cancel item");
+    } catch {
+      toast.error("Cancel failed");
     }
   };
 
-  // 🧾 PDF INVOICE
+  // 🧾 DOWNLOAD INVOICE
   const downloadInvoice = (orderId, items) => {
     const doc = new jsPDF();
     doc.text("Kisan-Mitra Invoice", 14, 15);
     doc.text(`Order ID: ${orderId}`, 14, 25);
-    doc.text(
-      `Date: ${new Date().toLocaleString()}`,
-      14,
-      31
-    );
+    doc.text(`Date: ${new Date().toLocaleString()}`, 14, 32);
 
     const rows = items.map((i) => [
       i.productName,
       i.quantity,
-      `₹${i.pricePerUnit}`,
-      `₹${i.quantity * i.pricePerUnit}`,
+      i.pricePerUnit,
+      i.quantity * i.pricePerUnit,
     ]);
 
     doc.autoTable({
@@ -155,132 +150,142 @@ const CustomerOrders = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h2 className="text-2xl font-bold text-emerald-700 mb-6">
-        My Orders
-      </h2>
+    <div className="max-w-6xl mx-auto p-6">
+      {/* PAGE HEADER */}
+      <div className="mb-8">
+        <h2 className="text-3xl font-bold text-gray-800">
+          My Orders
+        </h2>
+        <p className="text-sm text-gray-500 mt-1">
+          View and manage your purchases
+        </p>
+      </div>
 
       {Object.keys(orders).length === 0 && (
-        <p className="text-gray-500 text-center">
-          No orders found
-        </p>
+        <div className="text-center py-20 text-gray-500">
+          You haven’t placed any orders yet
+        </div>
       )}
 
-      {Object.keys(orders).map((orderId) => {
-        const items = orders[orderId];
-        const total = items.reduce(
-          (s, i) => s + i.quantity * i.pricePerUnit,
-          0
-        );
+      <div className="space-y-8">
+        {Object.keys(orders).map((orderId) => {
+          const items = orders[orderId];
+          const total = items.reduce(
+            (s, i) => s + i.quantity * i.pricePerUnit,
+            0
+          );
 
-        return (
-          <div
-            key={orderId}
-            className="border rounded-2xl p-5 mb-6 bg-white shadow"
-          >
-            {/* HEADER */}
-            <div className="flex justify-between mb-4">
-              <div>
-                <p className="font-semibold">Order ID</p>
-                <p className="text-sm text-gray-500">
-                  {orderId}
-                </p>
+          return (
+            <div
+              key={orderId}
+              className="rounded-3xl border bg-white shadow-sm"
+            >
+              {/* HEADER */}
+              <div className="flex flex-wrap justify-between items-center gap-4 px-6 py-4 bg-gray-50 border-b rounded-t-3xl">
+                <div>
+                  <p className="text-xs text-gray-500">ORDER ID</p>
+                  <p className="font-semibold text-gray-900">
+                    {orderId}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <span className="px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
+                    Ordered
+                  </span>
+
+                  <button
+                    onClick={() => downloadInvoice(orderId, items)}
+                    className="text-sm font-medium text-emerald-600 hover:underline"
+                  >
+                    Download Invoice
+                  </button>
+                </div>
               </div>
 
-              <button
-                onClick={() => downloadInvoice(orderId, items)}
-                className="text-emerald-600 text-sm hover:underline"
-              >
-                Download Invoice
-              </button>
-            </div>
+              {/* ITEMS */}
+              <div className="divide-y">
+                {items.map((item) => (
+                  <div
+                    key={item.$id}
+                    className="flex flex-col md:flex-row justify-between gap-6 px-6 py-5"
+                  >
+                    <div className="flex-1">
+                      <p className="font-semibold text-gray-900">
+                        {item.productName}
+                      </p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        ₹{item.pricePerUnit} per unit
+                      </p>
 
-            {/* ITEMS */}
-            <div className="space-y-4">
-              {items.map((item) => (
-                <div
-                  key={item.$id}
-                  className="flex justify-between items-center border rounded-xl p-4"
-                >
-                  <div>
-                    <p className="font-medium">
-                      {item.productName}
-                    </p>
+                      <div className="flex items-center gap-3 mt-3">
+                        <button
+                          onClick={() =>
+                            updateQuantity(
+                              orderId,
+                              item,
+                              item.quantity - 1
+                            )
+                          }
+                          className="h-8 w-8 rounded-full border hover:bg-gray-100"
+                        >
+                          −
+                        </button>
 
-                    {/* QUANTITY */}
-                    <div className="flex items-center gap-3 mt-2">
-                      <button
-                        onClick={() =>
-                          updateQuantity(
-                            orderId,
-                            item,
-                            item.quantity - 1
-                          )
-                        }
-                        className="px-3 py-1 rounded bg-gray-200"
-                      >
-                        −
-                      </button>
+                        <span className="font-semibold min-w-[32px] text-center">
+                          {item.quantity}
+                        </span>
 
-                      <span className="font-semibold">
-                        {item.quantity}
-                      </span>
-
-                      <button
-                        onClick={() =>
-                          updateQuantity(
-                            orderId,
-                            item,
-                            item.quantity + 1
-                          )
-                        }
-                        className="px-3 py-1 rounded bg-gray-200"
-                      >
-                        +
-                      </button>
+                        <button
+                          onClick={() =>
+                            updateQuantity(
+                              orderId,
+                              item,
+                              item.quantity + 1
+                            )
+                          }
+                          className="h-8 w-8 rounded-full border hover:bg-gray-100"
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
 
-                    <p className="text-sm text-gray-500 mt-1">
-                      ₹{item.pricePerUnit} each
-                    </p>
+                    <div className="text-right">
+                      <p className="text-lg font-bold">
+                        ₹{item.quantity * item.pricePerUnit}
+                      </p>
+
+                      <button
+                        onClick={() =>
+                          removeItem(orderId, item.$id)
+                        }
+                        className="mt-2 text-sm text-red-500 hover:underline"
+                      >
+                        Cancel item
+                      </button>
+                    </div>
                   </div>
+                ))}
+              </div>
 
-                  <div className="text-right">
-                    <p className="font-bold">
-                      ₹{item.quantity * item.pricePerUnit}
-                    </p>
+              {/* FOOTER */}
+              <div className="flex flex-wrap justify-between items-center gap-4 px-6 py-5 bg-gray-50 border-t rounded-b-3xl">
+                <p className="text-lg font-bold">
+                  Total: ₹{total}
+                </p>
 
-                    <button
-                      onClick={() =>
-                        removeItem(orderId, item.$id)
-                      }
-                      className="text-red-600 text-sm hover:underline mt-1"
-                    >
-                      Cancel Item
-                    </button>
-                  </div>
-                </div>
-              ))}
+                <button
+                  onClick={() => toast("Payment gateway hook")}
+                  className="px-8 py-2.5 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700"
+                >
+                  Pay Now
+                </button>
+              </div>
             </div>
-
-            {/* TOTAL */}
-            <div className="mt-5 flex justify-between items-center">
-              <p className="text-lg font-bold">
-                Total: ₹{total}
-              </p>
-
-              <button
-                onClick={() =>
-                  toast("Payment gateway hook")
-                }
-                className="px-6 py-2 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700"
-              >
-                Pay Now
-              </button>
-            </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };
