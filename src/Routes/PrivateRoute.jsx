@@ -1,50 +1,35 @@
-import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import AppwriteAccount from "../Appwrite/Account.Services";
-import { Button } from "@/components/ui/button";
+import useAuthStore from "@/store/authStore";
 import Spinner from "@/components/ui/spinner";
+import { Button } from "@/components/ui/button";
 
+function PrivateRoute({ children, allowedRoles }) {
+  const currentUser = useAuthStore((s) => s.currentUser);
+  // const isCheckingUser = useAuthStore((s) => s.isCheckingUser);
 
-function PrivateRoute({ children }) {
-  const [user, setUser] = useState(null);
-  const [isCheckingUser, setIsCheckingUser] = useState(true);
+  // if (isCheckingUser) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center">
+  //       <Button variant="outline" disabled>
+  //         <Spinner className="mr-2" />
+  //         Please wait
+  //       </Button>
+  //     </div>
+  //   );
+  // }
 
-  const appwriteAccount = new AppwriteAccount();
-
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const appwriteUser = await appwriteAccount.getAppwriteUser();
-        setUser(appwriteUser);
-      } catch (error) {
-        setUser(null);
-      } finally {
-        setIsCheckingUser(false);
-      }
-    }
-    fetchUser();
-  }, []);
-
-  if (isCheckingUser) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-b from-green-50 to-emerald-100">
-        <Button
-          variant="outline"
-          disabled
-          size="sm"
-          className="flex items-center gap-2"
-        >
-        <Spinner/>
-          Please wait
-        </Button>
-      </div>
-    );
+  // ❌ Not logged in
+  if (!currentUser) {
+    return <Navigate to="/login" replace />;
   }
 
-  if (!user) {
-    return <Navigate to="/login" />;
+  // ❌ Logged in but wrong role
+  const userRole = currentUser?.prefs?.role || currentUser?.role;
+  if (allowedRoles && !allowedRoles.includes(userRole)) {
+    return <Navigate to="/" replace />;
   }
 
+  // ✅ Authorized
   return children;
 }
 
