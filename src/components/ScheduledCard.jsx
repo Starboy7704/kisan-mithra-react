@@ -1,5 +1,5 @@
 import AppwriteStorage from "@/src/Appwrite/Storage.Services";
-import { APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID } from "@/src/Utils/Appwrite/constants";
+import { APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID } from "@/src/Utils/Appwrite/constants.js";
 
 const ScheduledCard = ({
   farmerId,

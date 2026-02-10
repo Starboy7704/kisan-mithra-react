@@ -1,8 +1,23 @@
+import { APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID } from "../Utils/Appwrite/constants";
+import AppwriteStorage from "../Appwrite/Storage.Services"
+
 const PesticidesCard = ({ pesticide, onAddToCart, onBuyNow }) => {
   if (!pesticide) return null;
 
   return (
     <div className="border rounded-xl p-4 bg-white shadow-sm hover:shadow-md transition flex flex-col">
+        {pesticide.imageId && (
+        <div className="mb-3">
+          <img
+            src={AppwriteStorage.getFileView(
+              APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID,
+              pesticide.imageId
+            )}
+            alt={pesticide.pesticideName}
+            className="h-40 w-full object-cover rounded-lg border"
+          />
+        </div>
+      )}
       <h3 className="text-lg font-semibold text-emerald-700">
         {pesticide.pesticideName}
       </h3>

@@ -1,9 +1,23 @@
+import { APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID } from "../Utils/Appwrite/constants";
+import AppwriteStorage from "../Appwrite/Storage.Services";
+
 const VegetableCard = ({ vegetable, onAddToCart, onBuyNow }) => {
   if (!vegetable) return null;
 
   return (
     <div className="group rounded-2xl border bg-white p-5 shadow-sm transition hover:shadow-lg flex flex-col">
-
+      {vegetable.imageId && (
+        <div className="mb-3">
+          <img
+            src={AppwriteStorage.getFileView(
+              APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID,
+              vegetable.imageId
+            )}
+            alt={vegetable.vegetableNameName}
+            className="h-40 w-full object-cover rounded-lg border"
+          />
+        </div>
+      )}
       {/* Header */}
       <div className="mb-3">
         <h2 className="text-lg font-semibold text-gray-800">
@@ -63,13 +77,12 @@ const VegetableCard = ({ vegetable, onAddToCart, onBuyNow }) => {
         </button>
 
         <button
-          onClick={() =>  onBuyNow(vegetable)}
+          onClick={() => onBuyNow(vegetable)}
           className="w-1/2 bg-green-600 text-white font-semibold py-2 rounded-lg hover:bg-green-700 transition"
         >
           Buy Now
         </button>
       </div>
-
     </div>
   );
 };

@@ -16,6 +16,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./queryClient";
 import AboutSection from "./pages/AboutSection";
 import { Toaster } from "react-hot-toast";
+import Payments from "./pages/Dasboards/CustomerDashboard/Sections/Payments";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
@@ -39,6 +40,15 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
   },
+  {
+  path: "/customer/payment",
+  element: (
+    <PrivateRoute>
+      <Payments/>
+    </PrivateRoute>
+  ),
+},
+
   {
     path: "/doctor",
     element: (

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
 import { APPWRITE_USERPROFILES_TABLE_ID } from "@/src/Utils/Appwrite/constants";
 import { Query } from "appwrite";
-import Spinner from "@/components/ui/spinner";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const roles = ["ALL", "FARMER", "AGRI_EXPERT", "CUSTOMER"];
 
@@ -69,9 +69,44 @@ const ManageUsers = () => {
 
       {/* Users Table */}
       {loading ? (
-        <div className="flex justify-center min-h-50 items-center">
-          <Spinner className="size-10 text-emerald-600 animate-spin" />
+        <div className="p-6 space-y-6">
+      {/* Page Title */}
+      <div className="space-y-2">
+        <Skeleton className="h-7 w-48" />
+        <Skeleton className="h-4 w-72" />
+      </div>
+
+      {/* Filter Buttons */}
+      <div className="flex gap-3">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <Skeleton key={i} className="h-9 w-24 rounded-full" />
+        ))}
+      </div>
+
+      {/* Table */}
+      <div className="bg-white rounded-xl border shadow-sm overflow-hidden">
+        {/* Table Header */}
+        <div className="grid grid-cols-4 gap-4 px-6 py-4 bg-gray-50">
+          <Skeleton className="h-4 w-20" />
+          <Skeleton className="h-4 w-28" />
+          <Skeleton className="h-4 w-16" />
+          <Skeleton className="h-4 w-16" />
         </div>
+
+        {/* Table Rows */}
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div
+            key={i}
+            className="grid grid-cols-4 gap-4 px-6 py-4 border-t"
+          >
+            <Skeleton className="h-4 w-24" />
+            <Skeleton className="h-4 w-40" />
+            <Skeleton className="h-6 w-24 rounded-full" />
+            <Skeleton className="h-4 w-16" />
+          </div>
+        ))}
+      </div>
+    </div>
       ) : users.length === 0 ? (
         <p className="text-gray-500">No users found.</p>
       ) : (

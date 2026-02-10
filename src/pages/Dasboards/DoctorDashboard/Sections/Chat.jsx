@@ -64,9 +64,9 @@ const Chat = ({ otherUserId }) => {
     initChat();
   }, [currentUser, otherUserId]);
 
-  /* ----------------------------------
-     2️⃣ REALTIME SUBSCRIPTION
-  ---------------------------------- */
+
+    //  2️⃣ REALTIME SUBSCRIPTION
+
   useEffect(() => {
     if (!conversation) return;
 

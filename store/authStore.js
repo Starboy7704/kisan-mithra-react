@@ -6,7 +6,6 @@ const useAuthStore = create(
     (set) => ({
       currentUser: null,
       // isCheckingUser : true,
-
       setCurrentUser: (user) => set({ currentUser: user }),
       // setIsCheckingUser : () => set((state) => ({isCheckingUser: !state.isCheckingUser})),
       logout: () => set({ currentUser: null }),
