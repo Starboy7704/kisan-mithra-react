@@ -33,7 +33,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/customer",
-    element: <CustomerDashboard />,
+    element: 
+    (
+      <PrivateRoute allowedRoles={["CUSTOMER"]}>
+        <CustomerDashboard />
+      </PrivateRoute>
+    ),
   },
   {
   path: "/customer/payment",
@@ -47,7 +52,7 @@ const router = createBrowserRouter([
   {
     path: "/doctor",
     element: (
-      <PrivateRoute>
+      <PrivateRoute allowedRoles={["AGRI_EXPERT"]}>
         <DoctorDashboard />
       </PrivateRoute>
     ),
@@ -55,7 +60,7 @@ const router = createBrowserRouter([
   {
     path: "/farmer",
     element: (
-      <PrivateRoute>
+      <PrivateRoute allowedRoles={["FARMER"]}>
         <FarmerDashboard />
       </PrivateRoute>
     ),
@@ -63,7 +68,7 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: (
-      <PrivateRoute>
+      <PrivateRoute allowedRoles={["ADMIN"]}>
         <AdminDashboard />
       </PrivateRoute>
     ),

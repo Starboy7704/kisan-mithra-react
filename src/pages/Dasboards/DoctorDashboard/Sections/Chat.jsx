@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuthStore from "../../../../../store/authStore";
 import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
-import ChatService from "@/src/Appwrite/Chat.services";
+import ChatService from "@/src/Appwrite/Chat.Services";
 import appwriteClient from "@/src/Appwrite";
 
 import {
