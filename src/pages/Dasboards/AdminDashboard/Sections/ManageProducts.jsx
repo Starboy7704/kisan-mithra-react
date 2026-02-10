@@ -33,7 +33,7 @@ const ManageProducts = () => {
   const [activeCard, setActiveCard] = useState(null);
 
   return (
-    <div className="max-w-6xl mx-auto p-6 bg-white rounded-xl shadow">
+    <div className="max-w-6xl p-6 bg-white rounded-xl shadow">
       {/* 🔘 Buttons */}
       <div className="flex justify-center gap-6 mb-8">
         <button
@@ -42,7 +42,6 @@ const ManageProducts = () => {
         >
           🌱 Seeds
         </button>
-
         <button
           onClick={() => setActiveCard("pesticides")}
           className="px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition"
@@ -50,7 +49,6 @@ const ManageProducts = () => {
           🧪 Pesticides
         </button>
       </div>
-
       {/* 📦 Animated Cards */}
       <AnimatePresence mode="wait">
         {activeCard === "seeds" && (

@@ -1,69 +1,69 @@
 import { Account, ID } from "appwrite";
 import appwriteClient from ".";
+import toast from "react-hot-toast";
 
 class AppwriteAccount {
   constructor() {
     this.account = new Account(appwriteClient);
   }
+
+  // ✅ Create account
   async createAppwriteAccount(email, password, fullname, role) {
-    // Create the account
-    const result = await this.account.create({
-      userId: ID.unique(),
-      email: email,
-      password: password,
-      name: fullname,
-    });
-
-    // Try to sign in right away and persist the role to account prefs so it can be read later
     try {
+      const result = await this.account.create({
+        userId: ID.unique(),
+        email,
+        password,
+        name: fullname,
+      });
+
+      // login once to store role in prefs
       await this.account.createEmailPasswordSession({ email, password });
-      // store role in prefs (Appwrite supports storing user preferences)
       await this.account.updatePrefs({ role });
-      // optional: end the session created during signup if you don't want to keep it
+
+      // optional logout after signup
       await this.account.deleteSession({ sessionId: "current" });
+
+      return result;
     } catch (error) {
-      console.log("Warning: could not set role prefs after signup", error);
-    }
-
-    return result;
-  }
-
-  //user
-  async getAppwriteUser(){
-    try{
-   const result= await this.account.get();
-  //  console.log(result)
-   return result;
-    }catch(error){
-        console.log("User Session not found!",error)
-        return null;
+      console.error("Signup error:", error);
+      throw error;
     }
   }
-  //create new user
-  async createAppwriteEmailPasswordSession(email, password) {
-    try{
-    const result=await this.account.createEmailPasswordSession({
-      email: email,
-      password: password,
+
+  // ✅ Get current logged-in user
+  async getAppwriteUser() {
+    try {
+      return await this.account.get();
+    } catch (error) {
+      console.error("User Session not found!", error);
+      throw error; // 🔥 critical
+    }
+  }
+
+  // ✅ Login
+async createAppwriteEmailPasswordSession(email, password) {
+  try {
+    return await this.account.createEmailPasswordSession({
+      email,
+      password,
     });
-    return result;
-  }catch(error){
-    console.log("Error in logging in the user",error)
-    return ""
+  } catch (error) {
+    toast.error("Login error:", error);
+    throw error;
   }
 }
-
-async logout(){
-    try{
-  const result=await this.account.deleteSession({
-        sessionId:'current'
-    });
-    console.log(result)
-    return result;
-}catch(error){
-console.log(error)
-}
-}
+  // ✅ Logout
+  async logout() {
+    try {
+      return await this.account.deleteSession({
+        sessionId: "current",
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+      throw error;
+    }
+  }
 }
 
 export default AppwriteAccount;

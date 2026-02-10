@@ -5,8 +5,7 @@ import {
   APPWRITE_PURCHASES_TABLE_ID,
 } from "@/src/Utils/Appwrite/constants";
 import PesticidesCard from "@/src/components/PesticidesCard";
-import PleaseWait from "@/src/pleasewait";
-import Spinner from "@/components/ui/spinner";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Account } from "appwrite";
 import appwriteClient from "@/src/Appwrite";
 import toast from "react-hot-toast";
@@ -21,9 +20,7 @@ const BuyPesticides = () => {
   useEffect(() => {
     const fetchPesticides = async () => {
       try {
-        const result = await tablesDB.listRows(
-          APPWRITE_PESTICIDES_TABLE_ID
-        );
+        const result = await tablesDB.listRows(APPWRITE_PESTICIDES_TABLE_ID);
         setPesticides(result.rows || []);
       } catch (error) {
         console.error("listRows error", error);
@@ -56,6 +53,7 @@ const BuyPesticides = () => {
         unit: pesticide.unit,
         pricePerUnit: price,
         totalPrice: price,
+        imageId:pesticide.imageId,
         status: "cart",
       });
 
@@ -86,6 +84,7 @@ const BuyPesticides = () => {
         unit: pesticide.unit,
         pricePerUnit: price,
         totalPrice: price,
+        imageid:pesticide.imageId,
         status: "ordered",
       });
 
@@ -98,25 +97,46 @@ const BuyPesticides = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-green-100">
-        <div className="flex items-center gap-3 border border-green-400 rounded-lg px-4 py-2 bg-white/70 shadow-sm">
-          <Spinner />
-          <PleaseWait />
-        </div>
-      </div>
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div
+            key={i}
+            className="rounded-xl border bg-white p-4 shadow-sm space-y-4"
+          >
+            <Skeleton className="h-32 w-full rounded-lg" />
+            <Skeleton className="h-4 w-3/4" />
+            <Skeleton className="h-4 w-1/2" />
+
+            <div className="flex gap-3 pt-2">
+              <Skeleton className="h-9 w-full rounded-md" />
+              <Skeleton className="h-9 w-full rounded-md" />
+            </div>
+          </div>
+        ))}
+      </section>
     );
   }
 
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {pesticides.map((pesticide) => (
-        <PesticidesCard
-          key={pesticide.$id}
-          pesticide={pesticide}
-          onAddToCart={handleAddToCart}
-          onBuyNow={handleBuyNow}
-        />
-      ))}
+    <section className="flex flex-col justifygrid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {pesticides.length === 0 ? (
+        <div className="text-center py-12 text-gray-500">
+          <p className="text-lg font-medium">No pesticides available 🌱</p>
+          <p className="text-sm mt-2">Please check back later.</p>
+        </div>
+      ) : (
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {pesticides.map((pesticide) => (
+            <PesticidesCard
+              key={pesticide.$id}
+              pesticide={pesticide}
+              onAddToCart={handleAddToCart}
+              onBuyNow={handleBuyNow}
+            />
+          ))}
+        </section>
+      )}
+      ;
     </section>
   );
 };

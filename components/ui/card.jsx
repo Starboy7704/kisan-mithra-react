@@ -1,3 +1,4 @@
+// ...existing code...
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
@@ -10,13 +11,12 @@ function Card({
     <div
       data-slot="card"
       className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
+        "bg-gradient-to-br from-green-100 via-green-10 to-white text-green-900 flex flex-col gap-6 rounded-xl border border-green-200 py-6 shadow-md hover:shadow-lg transition-shadow duration-200",
         className
       )}
       {...props} />
   );
 }
-
 function CardHeader({
   className,
   ...props
@@ -25,7 +25,7 @@ function CardHeader({
     <div
       data-slot="card-header"
       className={cn(
-        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
+        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] border-b border-green-100 pb-6",
         className
       )}
       {...props} />
@@ -39,7 +39,7 @@ function CardTitle({
   return (
     <div
       data-slot="card-title"
-      className={cn("leading-none font-semibold", className)}
+      className={cn("leading-none font-semibold text-green-800", className)}
       {...props} />
   );
 }
@@ -51,7 +51,7 @@ function CardDescription({
   return (
     <div
       data-slot="card-description"
-      className={cn("text-muted-foreground text-sm", className)}
+      className={cn("text-sm text-green-700/80", className)}
       {...props} />
   );
 }
@@ -75,7 +75,7 @@ function CardContent({
   className,
   ...props
 }) {
-  return (<div data-slot="card-content" className={cn("px-6", className)} {...props} />);
+  return (<div data-slot="card-content" className={cn("px-6 text-green-900", className)} {...props} />);
 }
 
 function CardFooter({
@@ -85,7 +85,7 @@ function CardFooter({
   return (
     <div
       data-slot="card-footer"
-      className={cn("flex items-center px-6 [.border-t]:pt-6", className)}
+      className={cn("flex items-center px-6 border-t border-green-100 pt-6", className)}
       {...props} />
   );
 }
@@ -99,3 +99,4 @@ export {
   CardDescription,
   CardContent,
 }
+// ...existing code...

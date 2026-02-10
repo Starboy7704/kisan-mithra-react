@@ -4,12 +4,10 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
   const menu = [
     { name: "Requests", key: "Requests" },
     { name: "My Appointments", key: "Appointments" },
-    { name: "Chat", key: "Chat" },
     { name: "Video", key: "VideoConsultation" },
     { name: "Payments", key: "Payments" },
     { name: "Profile", key: "UserProfile" },
   ];
-
   return (
     <aside className="fixed top-0 left-0 h-screen w-66 min-h-screen bg-green-700 text-white p-4">
       {/* Title */}

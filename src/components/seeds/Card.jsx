@@ -1,6 +1,22 @@
+import AppwriteStorage from "@/src/Appwrite/Storage.Services";
+import { APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID } from "@/src/Utils/Appwrite/constants";
+
 const Card = ({ seed, onAddToCart, onBuyNow }) => {
   return (
     <div className="group rounded-2xl border bg-white p-5 shadow-sm transition hover:shadow-lg">
+
+      {seed.imageId && (
+        <div className="mb-4 flex justify-center">
+          <img
+            src={AppwriteStorage.getFileView(
+              APPWRITE_KISAN_MITRA_IMAGES_BUCKET_ID,
+              seed.imageId
+            )}
+            alt={seed.seedName}
+            className="h-40 w-full object-cover rounded-xl border"
+          />
+        </div>
+      )}
 
       <div className="mb-3">
         <h2 className="text-lg font-semibold text-gray-800">
@@ -39,7 +55,7 @@ const Card = ({ seed, onAddToCart, onBuyNow }) => {
         </div>
       </div>
 
-            <div className="mt-auto pt-4 flex gap-3">
+      <div className="mt-auto pt-4 flex gap-3">
         <button
           onClick={() => onAddToCart(seed)}
           className="w-1/2 bg-green-100 text-green-700 font-semibold py-2 rounded-lg hover:bg-green-200 transition"

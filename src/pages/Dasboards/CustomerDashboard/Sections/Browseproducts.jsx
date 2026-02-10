@@ -4,8 +4,7 @@ import {
   APPWRITE_VEGETABLES_TABLE_ID,
   APPWRITE_PURCHASES_TABLE_ID,
 } from "../../../../Utils/Appwrite/constants.js";
-import Spinner from "@/components/ui/spinner";
-import PleaseWait from "@/src/pleasewait.jsx";
+import { Skeleton } from "@/components/ui/skeleton.jsx";
 import VegetableCard from "@/src/components/VegetableCard";
 import { Account } from "appwrite";
 import appwriteClient from "@/src/Appwrite";
@@ -51,6 +50,7 @@ const Browseproducts = () => {
         pricePerUnit: price,
         totalPrice: price,
         status: "cart",
+        imageId:veg.imageId
       });
       toast.success("Added Vegetable to Cart");
     } catch (error) {
@@ -78,6 +78,7 @@ const Browseproducts = () => {
         unit: veg.unit || "kg",
         pricePerUnit: price,
         totalPrice: price,
+        imageId:veg.imageId,
         status: "ordered",
       });
       toast.success("📦 Vegetable order placed successfully");
@@ -89,12 +90,23 @@ const Browseproducts = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-green-100">
-        <div className="flex items-center gap-3 scale-100 border border-green-400 rounded-lg px-4 py-2 bg-white/70 shadow-sm">
-          <Spinner />
-          <PleaseWait />
+ <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+      {Array.from({ length: 6 }).map((_, i) => (
+        <div
+          key={i}
+          className="rounded-xl border bg-white p-4 shadow-sm space-y-4"
+        >
+          <Skeleton className="h-32 w-full rounded-lg" />
+          <Skeleton className="h-4 w-3/4" />
+          <Skeleton className="h-4 w-1/2" />
+
+          <div className="flex gap-3 pt-2">
+            <Skeleton className="h-9 w-full rounded-md" />
+            <Skeleton className="h-9 w-full rounded-md" />
+          </div>
         </div>
-      </div>
+      ))}
+    </section>
     );
   }
 

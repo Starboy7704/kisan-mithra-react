@@ -59,17 +59,14 @@ function PublicRoute({ children }) {
     }
     fetchUser();
   }, []);
-
   /* 🔹 Show skeleton while checking auth */
   if (isCheckingUser) {
     return <LoginSkeleton />;
   }
-
   /* 🔹 If logged in, redirect */
   if (user) {
     return <Navigate to="/farmer" replace />;
   }
-
   /* 🔹 Otherwise show public page (login/signup) */
   return children;
 }

@@ -77,169 +77,162 @@ const SellVegetables = () => {
   }
 
   return (
-   <div
-  className="max-w-5xl mx-auto p-8 bg-white/90 backdrop-blur
+    <div
+      className="max-w-5xl mx-auto p-8 bg-white/90 backdrop-blur
              rounded-2xl shadow-xl border border-gray-100"
->
-  <h2
-    className="text-4xl font-bold mb-8 text-center
+    >
+      <h2
+        className="text-4xl font-bold mb-8 text-center
                text-green-700 tracking-tight"
-  >
-    Sell Vegetables
-  </h2>
+      >
+        Sell Vegetables
+      </h2>
 
-  <form
-    onSubmit={handleSubmit(onSubmit)}
-    className="grid grid-cols-1 md:grid-cols-2 gap-6"
-  >
-    {/* Vegetable Name */}
-    <div>
-      <label className="block text-sm font-medium mb-1">
-        Vegetable Name *
-      </label>
-      <input
-        {...register("vegetableName", {
-          required: "Vegetable name is required",
-        })}
-        placeholder="e.g. Tomato"
-        className="w-full rounded-xl border border-gray-300
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
+        {/* Vegetable Name */}
+        <div>
+          <label className="block text-sm font-medium mb-1">
+            Vegetable Name *
+          </label>
+          <input
+            {...register("vegetableName", {
+              required: "Vegetable name is required",
+            })}
+            placeholder="e.g. Tomato"
+            className="w-full rounded-xl border border-gray-300
                    px-4 py-3 text-sm
                    focus:outline-none focus:ring-2 focus:ring-green-500
                    focus:border-green-500
                    transition duration-200"
-      />
-      {errors.vegetableName && (
-        <p className="text-red-500 text-sm mt-1">
-          {errors.vegetableName.message}
-        </p>
-      )}
-    </div>
+          />
+          {errors.vegetableName && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.vegetableName.message}
+            </p>
+          )}
+        </div>
 
-    {/* Quantity */}
-    <div>
-      <label className="block text-sm font-medium mb-1">
-        Quantity *
-      </label>
-      <input
-        type="number"
-        {...register("quantity", {
-          required: "Quantity is required",
-          min: { value: 1, message: "Must be at least 1" },
-        })}
-        placeholder="e.g. 50"
-        className="w-full rounded-xl border border-gray-300
+        {/* Quantity */}
+        <div>
+          <label className="block text-sm font-medium mb-1">Quantity *</label>
+          <input
+            type="number"
+            {...register("quantity", {
+              required: "Quantity is required",
+              min: { value: 1, message: "Must be at least 1" },
+            })}
+            placeholder="e.g. 50"
+            className="w-full rounded-xl border border-gray-300
                    px-4 py-3 text-sm
                    focus:outline-none focus:ring-2 focus:ring-green-500
                    focus:border-green-500
                    transition duration-200"
-      />
-    </div>
+          />
+        </div>
 
-    {/* Unit */}
-    <div>
-      <label className="block text-sm font-medium mb-1">
-        Unit
-      </label>
-      <select
-        {...register("unit")}
-        className="w-full rounded-xl border border-gray-300
+        {/* Unit */}
+        <div>
+          <label className="block text-sm font-medium mb-1">Unit</label>
+          <select
+            {...register("unit")}
+            className="w-full rounded-xl border border-gray-300
                    px-4 py-3 text-sm bg-white
                    focus:outline-none focus:ring-2 focus:ring-green-500
                    focus:border-green-500"
-      >
-        <option value="Kg">Kg</option>
-        <option value="Quintal">Quintal</option>
-        <option value="Ton">Ton</option>
-      </select>
-    </div>
+          >
+            <option value="Kg">Kg</option>
+            <option value="Quintal">Quintal</option>
+            <option value="Ton">Ton</option>
+          </select>
+        </div>
 
-    {/* Price */}
-    <div>
-      <label className="block text-sm font-medium mb-1">
-        Price per Unit *
-      </label>
-      <input
-        type="number"
-        {...register("pricePerUnit", {
-          required: "Price is required",
-        })}
-        placeholder="e.g. ₹30"
-        className="w-full rounded-xl border border-gray-300
+        {/* Price */}
+        <div>
+          <label className="block text-sm font-medium mb-1">
+            Price per Unit *
+          </label>
+          <input
+            type="number"
+            {...register("pricePerUnit", {
+              required: "Price is required",
+            })}
+            placeholder="e.g. ₹30"
+            className="w-full rounded-xl border border-gray-300
                    px-4 py-3 text-sm
                    focus:outline-none focus:ring-2 focus:ring-green-500
                    focus:border-green-500
                    transition duration-200"
-      />
-    </div>
+          />
+        </div>
 
-    {/* Location */}
-    <div>
-      <label className="block text-sm font-medium mb-1">
-        Location *
-      </label>
-      <input
-        {...register("location", { required: "Location is required" })}
-        placeholder="Village / Market name"
-        className="w-full rounded-xl border border-gray-300
+        {/* Location */}
+        <div>
+          <label className="block text-sm font-medium mb-1">Location *</label>
+          <input
+            {...register("location", { required: "Location is required" })}
+            placeholder="Village / Market name"
+            className="w-full rounded-xl border border-gray-300
                    px-4 py-3 text-sm
                    focus:outline-none focus:ring-2 focus:ring-green-500
                    focus:border-green-500
                    transition duration-200"
-      />
-    </div>
+          />
+        </div>
 
-    {/* Description */}
-    <div>
-      <label className="block text-sm font-medium mb-1">
-        Description (optional)
-      </label>
-      <textarea
-        {...register("description")}
-        rows="3"
-        placeholder="Any extra details..."
-        className="w-full rounded-xl border border-gray-300
+        {/* Description */}
+        <div>
+          <label className="block text-sm font-medium mb-1">
+            Description (optional)
+          </label>
+          <textarea
+            {...register("description")}
+            rows="3"
+            placeholder="Any extra details..."
+            className="w-full rounded-xl border border-gray-300
                    px-4 py-3 text-sm resize-none
                    focus:outline-none focus:ring-2 focus:ring-green-500
                    focus:border-green-500"
-      />
-    </div>
+          />
+        </div>
 
-    {/* Image Upload */}
-    <div className="md:col-span-2">
-      <label className="block text-sm font-medium mb-2 text-center">
-        Vegetable Image *
-      </label>
+        {/* Image Upload */}
+        <div className="md:col-span-2">
+          <label className="block text-sm font-medium mb-2 text-center">
+            Vegetable Image *
+          </label>
 
-      <div className="flex justify-center">
-        <input
-          type="file"
-          accept="image/*"
-          {...register("image")}
-          className="block w-72 text-sm text-gray-600
+          <div className="flex justify-center">
+            <input
+              type="file"
+              accept="image/*"
+              {...register("image")}
+              className="block w-72 text-sm text-gray-600
                      file:mr-4 file:py-2 file:px-4
                      file:rounded-full file:border-0
                      file:text-sm file:font-semibold
                      file:bg-green-100 file:text-green-700
                      hover:file:bg-green-200 cursor-pointer"
-        />
-      </div>
-    </div>
+            />
+          </div>
+        </div>
 
-    {/* Submit */}
-    <div className="md:col-span-2">
-      <Button
-        type="submit"
-        className="w-full py-3 text-lg font-semibold rounded-xl
+        {/* Submit */}
+        <div className="md:col-span-2">
+          <Button
+            type="submit"
+            className="w-full py-3 text-lg font-semibold rounded-xl
                    bg-gradient-to-r from-green-600 to-green-700
                    hover:from-green-700 hover:to-green-800
                    transition-all duration-200 shadow-md"
-      >
-        Sell Vegetable
-      </Button>
+          >
+            Sell Vegetable
+          </Button>
+        </div>
+      </form>
     </div>
-  </form>
-</div>
-
   );
 };
 

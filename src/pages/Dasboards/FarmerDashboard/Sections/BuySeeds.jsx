@@ -5,11 +5,10 @@ import {
   APPWRITE_PURCHASES_TABLE_ID,
 } from "@/src/Utils/Appwrite/constants";
 import Card from "@/src/components/seeds/Card";
-import PleaseWait from "@/src/pleasewait";
-import Spinner from "@/components/ui/spinner";
 import { Account } from "appwrite";
 import appwriteClient from "@/src/Appwrite";
 import toast from "react-hot-toast";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const BuySeeds = () => {
   const [seeds, setSeeds] = useState([]);
@@ -46,11 +45,12 @@ const BuySeeds = () => {
         productName: seed.seedName,
         quantity: 1,
         unit: "packet",
+        imageId:seed.imageId,
         pricePerUnit: price,
         totalPrice: price,
         status: "cart",
       });
-      toast.success("Added Seeds to Cart")
+      toast.success("Added Seeds to Cart");
     } catch (error) {
       console.error("Add seed to cart failed:", error);
       toast.error("❌ Failed to Add Seed to Cart");
@@ -76,6 +76,7 @@ const BuySeeds = () => {
         unit: "packet",
         pricePerUnit: price,
         totalPrice: price,
+        imageId:seed.imageId,
         status: "ordered",
       });
       toast.success("📦 Seed order placed successfully");
@@ -87,25 +88,45 @@ const BuySeeds = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-green-100">
-        <div className="flex items-center gap-3 border border-green-400 rounded-lg px-4 py-2 bg-white/70 shadow-sm">
-          <Spinner />
-          <PleaseWait />
+    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+      {Array.from({ length: 6 }).map((_, i) => (
+        <div
+          key={i}
+          className="rounded-xl border bg-white p-4 shadow-sm space-y-4"
+        >
+          <Skeleton className="h-32 w-full rounded-lg" />
+          <Skeleton className="h-4 w-3/4" />
+          <Skeleton className="h-4 w-1/2" />
+
+          <div className="flex gap-3 pt-2">
+            <Skeleton className="h-9 w-full rounded-md" />
+            <Skeleton className="h-9 w-full rounded-md" />
+          </div>
         </div>
-      </div>
+      ))}
+    </section>
     );
   }
 
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {seeds.map((seed) => (
-        <Card
-          key={seed.$id}
-          seed={seed}
-          onAddToCart={handleAddToCart}
-          onBuyNow={handleBuyNow}
-        />
-      ))}
+    <section className="flex flex-col justifygrid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {seeds.length === 0 ? (
+        <div className="text-center py-12 text-gray-500">
+          <p className="text-lg font-medium">No seeds available 🌱</p>
+          <p className="text-sm mt-2">Please check back later.</p>
+        </div>
+      ) : (
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {seeds.map((seed) => (
+            <Card
+              key={seed.$id}
+              seed={seed}
+              onAddToCart={handleAddToCart}
+              onBuyNow={handleBuyNow}
+            />
+          ))}
+        </section>
+      )}
     </section>
   );
 };

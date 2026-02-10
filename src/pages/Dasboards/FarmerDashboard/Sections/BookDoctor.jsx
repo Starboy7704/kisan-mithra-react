@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import DoctorCard from "@/src/components/DoctorCard";
 import AppointmentCard from "@/src/components/seeds/AppointmentCard.jsx";
 import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
 import { APPWRITE_USERPROFILES_TABLE_ID } from "@/src/Utils/Appwrite/constants";
 import { Query } from "appwrite";
-import Spinner from "@/components/ui/spinner";
-import PleaseWait from "@/src/pleasewait";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import { AnimatePresence, motion } from "framer-motion";
+import DoctorCard from "@/src/components/DoctorCard";
 
 const BookDoctor = () => {
   const [doctors, setDoctors] = useState([]);
@@ -37,12 +36,23 @@ const BookDoctor = () => {
     <div className="p-6 space-y-8 relative">
       {/* Doctor Cards */}
       {loading ? (
-        <div className="flex items-center justify-center min-h-screen bg-green-100">
-          <div className="flex items-center gap-3 border border-green-400 rounded-lg px-4 py-2 bg-white/70 shadow-sm">
-            <Spinner />
-            <PleaseWait />
-          </div>
-        </div>
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div
+              key={i}
+              className="rounded-xl border bg-white p-4 shadow-sm space-y-4"
+            >
+              <Skeleton className="h-32 w-full rounded-lg" />
+              <Skeleton className="h-4 w-3/4" />
+              <Skeleton className="h-4 w-1/2" />
+
+              <div className="flex gap-3 pt-2">
+                <Skeleton className="h-9 w-full rounded-md" />
+                <Skeleton className="h-9 w-full rounded-md" />
+              </div>
+            </div>
+          ))}
+        </section>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {doctors.map((doctor) => (
