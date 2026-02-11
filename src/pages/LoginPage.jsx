@@ -37,15 +37,12 @@ function LogInPage() {
       );
 
       if (!session) throw new Error("Session not created");
-
       // fetch user
       const user = await appwriteAccount.getAppwriteUser();
 
       if (!user) throw new Error("User fetch failed");
-
       return user;
     },
-
     onSuccess: (user) => {
       setCurrentUser(user);
 
@@ -65,7 +62,7 @@ function LogInPage() {
 
     onError: (error) => {
       console.error("Login failed:", error);
-      toast.error(error?.message || "Login failed — invalid email or password");
+      toast.error(error.message|| "Login failed — invalid email or password");
     },
   });
 

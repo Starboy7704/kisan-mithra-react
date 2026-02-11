@@ -71,11 +71,9 @@ const Orders = ({ setPaymentAmount, setActiveTab }) => {
       for (const orderId of selectedOrders) {
         const items = orders[orderId] || [];
         for (const item of items) {
-          await tablesDB.updateRow(
-            APPWRITE_PURCHASES_TABLE_ID,
-            item.$id,
-            { status: "cancelled" }
-          );
+          await tablesDB.updateRow(APPWRITE_PURCHASES_TABLE_ID, item.$id, {
+            status: "cancelled",
+          });
         }
       }
 
@@ -112,10 +110,7 @@ const Orders = ({ setPaymentAmount, setActiveTab }) => {
       startY: 35,
     });
 
-    const total = items.reduce(
-      (s, i) => s + i.quantity * i.pricePerUnit,
-      0
-    );
+    const total = items.reduce((s, i) => s + i.quantity * i.pricePerUnit, 0);
 
     doc.text(`Grand Total: ₹${total}`, 14, doc.lastAutoTable.finalY + 10);
     doc.save(`Invoice-${orderId}.pdf`);
@@ -128,8 +123,18 @@ const Orders = ({ setPaymentAmount, setActiveTab }) => {
 
   if (loading) {
     return (
-      <div className="p-6 space-y-6">
-        <Skeleton className="h-8 w-48 mx-auto mb-6" />
+    <div className="p-6 space-y-6">
+        <Skeleton className="h-8 w-40 mx-auto mb-6" />
+        {Array.from({ length: 2 }).map((_, i) => (
+          <div
+            key={i}
+            className="bg-white rounded-xl border shadow-sm p-6 space-y-4"
+          >
+            <Skeleton className="h-20 w-full rounded-lg" />
+            <Skeleton className="h-4 w-32" />
+            <Skeleton className="h-4 w-24" />
+          </div>
+        ))}
       </div>
     );
   }
@@ -238,22 +243,20 @@ const Orders = ({ setPaymentAmount, setActiveTab }) => {
             <div className="mt-5 flex justify-between items-center">
               <p className="text-lg font-bold">Total: ₹{total}</p>
             </div>
-            
           </div>
-          
         );
-      }
-
-      )}
+      })}
       {Object.keys(orders).length > 0 && (
-  <div className="
+        <div
+          className="
     mt-16 
   bottom-6 
     flex justify-center
     z-14
-  ">
-    <div
-      className="
+  "
+        >
+          <div
+            className="
         w-full max-w-6xl
         bg-white
         border border-emerald-100
@@ -264,37 +267,39 @@ const Orders = ({ setPaymentAmount, setActiveTab }) => {
         md:items-center md:justify-between
         gap-6
       "
-    >
-      {/* TOTAL SUMMARY */}
-      <div className="flex items-center gap-4">
-        <div className="
+          >
+            {/* TOTAL SUMMARY */}
+            <div className="flex items-center gap-4">
+              <div
+                className="
           h-12 w-12 
           rounded-full 
           bg-emerald-100 
           flex items-center justify-center
           text-emerald-700 font-bold
-        ">
-          ₹
-        </div>
+        "
+              >
+                ₹
+              </div>
 
-        <div>
-          <p className="text-sm text-gray-500">
-            Total Amount (All Orders)
-          </p>
-          <p className="text-2xl font-bold text-gray-800">
-            ₹{allOrdersTotal}
-          </p>
-        </div>
-      </div>
+              <div>
+                <p className="text-sm text-gray-500">
+                  Total Amount (All Orders)
+                </p>
+                <p className="text-2xl font-bold text-gray-800">
+                  ₹{allOrdersTotal}
+                </p>
+              </div>
+            </div>
 
-      {/* CTA */}
-      <button
-        onClick={() => {
-          setPaymentAmount(allOrdersTotal);
-          setActiveTab("Payments");
-          toast.success("Proceeding to payment");
-        }}
-        className="
+            {/* CTA */}
+            <button
+              onClick={() => {
+                setPaymentAmount(allOrdersTotal);
+                setActiveTab("Payments");
+                toast.success("Proceeding to payment");
+              }}
+              className="
           w-full md:w-auto
           px-10 py-3
           bg-emerald-600
@@ -307,12 +312,12 @@ const Orders = ({ setPaymentAmount, setActiveTab }) => {
           transition
           shadow-lg
         "
-      >
-        Place Order
-      </button>
-    </div>
-  </div>
-)}
+            >
+              Place Order
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

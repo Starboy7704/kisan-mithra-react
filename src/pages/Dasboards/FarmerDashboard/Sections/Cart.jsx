@@ -67,6 +67,39 @@ const Cart = () => {
       </div>
     );
   }
+  const updateQuantity = async (item, type) => {
+  try {
+    let newQuantity =
+      type === "increase"
+        ? item.quantity + 1
+        : item.quantity - 1;
+
+    if (newQuantity < 1) return;
+
+    const newTotal = newQuantity * item.pricePerUnit;
+
+    await tablesDB.updateRow(
+      APPWRITE_PURCHASES_TABLE_ID,
+      item.$id,
+      {
+        quantity: newQuantity,
+        totalPrice: newTotal,
+      }
+    );
+
+    // Update local state instantly (no refetch)
+    setItems((prev) =>
+      prev.map((i) =>
+        i.$id === item.$id
+          ? { ...i, quantity: newQuantity, totalPrice: newTotal }
+          : i
+      )
+    );
+  } catch (error) {
+    toast.error("Failed to update quantity");
+  }
+};
+
 
   const checkout = async () => {
     try {
@@ -130,9 +163,30 @@ const Cart = () => {
                   Type: {item.productType}
                 </p>
 
-                <p className="text-sm text-gray-600">
-                  Quantity: {item.quantity} {item.unit}
-                </p>
+            <div className="flex items-center gap-3 mt-2">
+  <button
+    onClick={() => updateQuantity(item, "decrease")}
+    className="px-3 py-1 bg-gray-200 rounded-md hover:bg-gray-300"
+  >
+    -
+  </button>
+
+  <span className="font-semibold">
+    {item.quantity}
+  </span>
+
+  <button
+    onClick={() => updateQuantity(item, "increase")}
+    className="px-3 py-1 bg-gray-200 rounded-md hover:bg-gray-300"
+  >
+    +
+  </button>
+
+  <span className="text-sm text-gray-600 ml-2">
+    {item.unit}
+  </span>
+</div>
+
 
                 <span className="inline-block mt-1 text-xs px-2 py-1 rounded-full bg-yellow-100 text-yellow-700">
                   {item.status}
