@@ -49,7 +49,8 @@ async createAppwriteEmailPasswordSession(email, password) {
       password,
     });
   } catch (error) {
-    toast.error("Login error:", error);
+    toast.error("Login Failed");
+    console.err(error)
     throw error;
   }
 }
