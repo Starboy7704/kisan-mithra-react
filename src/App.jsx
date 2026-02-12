@@ -1,8 +1,9 @@
 import Spinner from "@/components/ui/spinner";
 import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
 import HeroSection from "./pages/Herosection";
 
-function SpinnerOnly() {
+function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -10,15 +11,16 @@ function SpinnerOnly() {
     return () => clearTimeout(timer);
   }, []);
 
-  return loading ? (
-    <div className="flex items-center justify-center min-h-screen bg-green-100">
-      <div className="flex items-center gap-3 scale-200 rounded-lg">
-        <Spinner />
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-green-100">
+        <div className="flex items-center gap-3 scale-200 rounded-lg">
+          <Spinner/>
+        </div>
       </div>
-    </div>  
-  ) : (
-    <HeroSection />
-  );
-
+    );
+  }
+  return <HeroSection/>;
 }
-export default SpinnerOnly
+
+export default App;

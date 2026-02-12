@@ -19,7 +19,7 @@ import { Toaster } from "react-hot-toast";
 import Payments from "./pages/Dasboards/CustomerDashboard/Sections/Payments";
 
 const router = createBrowserRouter([
-  { path: "/", element: <App /> },
+  { path: "/", element: <App/> },
 
   { path: "/register", element: <SignupPage /> },
 

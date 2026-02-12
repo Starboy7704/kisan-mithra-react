@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-
+import { useState,useEffect } from "react";
+import LoginSelection from "../pages/LoginSelection";
+import { Navigate } from "react-router";
 function PublicRoute({ children }) {
   const [user, setUser] = useState(null);
   const [isCheckingUser, setIsCheckingUser] = useState(true);
@@ -20,7 +21,7 @@ function PublicRoute({ children }) {
   }, []);
   /* 🔹 Show skeleton while checking auth */
   if (isCheckingUser) {
-    return <LoginSkeleton />;
+    return <LoginSelection/>;
   }
   /* 🔹 If logged in, redirect */
   if (user) {
