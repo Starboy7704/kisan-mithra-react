@@ -44,21 +44,22 @@ function LogInPage() {
       return user;
     },
     onSuccess: (user) => {
-      setCurrentUser(user);
+  setCurrentUser(user);
 
-      const userRole = user?.prefs?.role;
+  const userRole = user?.prefs?.role;
 
-      if (userRole === "FARMER") navigate("/farmer");
-      else if (userRole === "AGRI_EXPERT") navigate("/doctor");
-      else if (userRole === "CUSTOMER") navigate("/customer");
-      else if (userRole === "ADMIN") navigate("/admin");
-      else {
-        toast.error("Role missing");
-      }
-      toast.success("Welcome back! You’re now logged in.", {
-        icon: "👏",
-      });
-    },
+  setTimeout(() => {
+    if (userRole === "FARMER") navigate("/farmer");
+    else if (userRole === "AGRI_EXPERT") navigate("/doctor");
+    else if (userRole === "CUSTOMER") navigate("/customer");
+    else if (userRole === "ADMIN") navigate("/admin");
+    else toast.error("Role missing");
+  }, 0);
+
+  toast.success("Welcome back! You’re now logged in.", {
+    icon: "👏",
+  });
+},
 
     onError: (error) => {
       console.error("Login failed:", error);

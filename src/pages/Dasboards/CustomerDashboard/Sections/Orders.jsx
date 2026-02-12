@@ -313,7 +313,7 @@ const Orders = ({ setPaymentAmount, setActiveTab }) => {
           shadow-lg
         "
             >
-              Place Order
+              Order Now
             </button>
           </div>
         </div>

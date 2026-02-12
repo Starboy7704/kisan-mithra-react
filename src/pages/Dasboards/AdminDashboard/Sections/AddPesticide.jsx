@@ -59,7 +59,7 @@ const AddPesticide = () => {
         APPWRITE_PESTICIDES_TABLE_ID,
         newPesticide
       );
-      alert("Pesticide saved successfully.");
+      toast.success("Pesticide saved successfully.");
       reset(); // 🔥 resets entire form including file input
     } catch (error) {
       console.error("Failed to create pesticide row:", error);

@@ -44,16 +44,21 @@ class AppwriteAccount {
   // ✅ Login
 async createAppwriteEmailPasswordSession(email, password) {
   try {
-    return await this.account.createEmailPasswordSession({
-      email,
-      password,
-    });
+    // 🔥 delete existing session first
+    try {
+      await this.account.deleteSession("current");
+    } catch (e) {
+      // ignore if no session exists
+    }
+
+    return await this.account.createEmailPasswordSession(email, password);
+
   } catch (error) {
-    toast.error("Login Failed");
-    console.err(error)
+    console.error(error);
     throw error;
   }
 }
+
   // ✅ Logout
   async logout() {
     try {
