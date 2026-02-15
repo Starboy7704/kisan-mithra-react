@@ -8,7 +8,7 @@ import ServicesSection from "./ServicesSection";
 
 function HeroSection() {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <section
         id="home"
         className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-linear-to-b from-green-50 to-emerald-100"

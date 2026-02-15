@@ -1,3 +1,5 @@
+// Sidebar.jsx
+
 import React from "react";
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
@@ -11,25 +13,27 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
   ];
 
   return (
-    <aside className="fixed top-0 left-0 w-66 h-screen bg-green-700 text-white flex flex-col p-8 shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-center border-b border-green-500 pb-2">
+    <aside className="h-full w-full bg-green-700 text-white flex flex-col p-6">
+      <h2 className="text-2xl font-bold mb-6 text-center border-b border-green-500 pb-3">
         🌱 Admin Menu
       </h2>
 
-      {menu.map((item) => (
-        <button
-          key={item.key}
-          onClick={() => setActiveTab(item.key)}
-          className={`text-left px-4 py-2 mb-2 rounded-lg transition-all 
-          ${
-            activeTab === item.key
-              ? "bg-green-500"
-              : "hover:bg-green-600 hover:translate-x-1"
-          }`}
-        >
-          {item.name}
-        </button>
-      ))}
+      <div className="flex flex-col gap-2">
+        {menu.map((item) => (
+          <button
+            key={item.key}
+            onClick={() => setActiveTab(item.key)}
+            className={`text-left px-4 py-2 rounded-lg transition-all duration-200
+              ${
+                activeTab === item.key
+                  ? "bg-green-500 shadow-md"
+                  : "hover:bg-green-600"
+              }`}
+          >
+            {item.name}
+          </button>
+        ))}
+      </div>
     </aside>
   );
 };
