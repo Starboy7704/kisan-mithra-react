@@ -71,7 +71,7 @@ const DoctorDashboard = () => {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 h-full overflow-y-auto p-4 md:p-6 bg-white md:ml-60">
+      <main className="flex-1 h-full overflow-y-auto p-4 md:p-6 bg-white">
         <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-6 text-center pt-12 md:pt-0">
           Doctor Dashboard 🩺
         </h1>

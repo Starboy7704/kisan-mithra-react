@@ -55,7 +55,6 @@ const Navbar = () => {
     >
       <nav className="backdrop-blur-md bg-linear-to-r from-emerald-100/80 to-green-100 border-b border-emerald-200">
         <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img
@@ -130,12 +129,19 @@ const Navbar = () => {
 
                 <DropdownMenuItem
                   className="rounded-lg px-3 py-2 cursor-pointer hover:bg-green-50"
-                  onClick={() => navigate("/admin-login")}
+                  onClick={() => navigate("/login")}
                 >
-                  🛠 Admin Login
+                  🩺 Agri-Doctor Login
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+
+            <Button
+              className="rounded-full bg-white px-6 text-green-700 border border-green-600 shadow-lg hover:bg-green-50 hover:text-green-800 active:scale-95 transition-all"
+              onClick={() => navigate("/loginSelection")}
+            >
+              Register
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -180,6 +186,15 @@ const Navbar = () => {
               className="w-full rounded-full bg-green-600 hover:bg-green-700 text-white"
             >
               Login
+            </Button>
+            <Button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                navigate("/loginSelection");
+              }}
+              className="w-full rounded-full bg-white px-6 text-green-700 border border-green-600 shadow-lg hover:bg-green-50 hover:text-green-800 active:scale-95 transition-all"
+            >
+              Register
             </Button>
           </div>
         )}

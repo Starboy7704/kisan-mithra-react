@@ -83,6 +83,8 @@ function HeroSection() {
                 🌱 Start Farming Smarter
               </Link>
 
+              
+
               <Button variant="outline" size="lg">
                 Learn More
               </Button>

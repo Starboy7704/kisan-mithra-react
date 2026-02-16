@@ -71,7 +71,7 @@ const AdminDashboard = () => {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 h-full overflow-y-auto p-4 md:p-8 bg-white md:ml-64 md:rounded-l-2xl shadow-inner">
+      <main className="flex-1 h-full overflow-y-auto p-4 md:p-8 bg-white">
         <h1 className="text-2xl md:text-3xl font-bold text-green-800 mb-6 text-center pt-12 md:pt-0">
           Admin Dashboard 🛠️
         </h1>

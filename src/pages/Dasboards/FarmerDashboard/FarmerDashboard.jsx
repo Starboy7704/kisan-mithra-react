@@ -79,7 +79,7 @@ const FarmerDashboard = () => {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 h-full overflow-y-auto bg-white p-4 md:p-8 md:ml-60">
+      <main className="flex-1 h-full overflow-y-auto bg-white p-4 md:p-8">
 
         <h1 className="text-2xl md:text-3xl font-bold text-green-800 mb-6 text-center pt-12 md:pt-0">
           Farmer Dashboard 🌾
