@@ -105,7 +105,7 @@ return (
             bg-clip-text 
           "
         >
-          Admin Dashboard 🛠️
+          Admin Dashboard🛠️
         </h1>
 
         <p className="text-emerald-700 mt-2 text-xs sm:text-sm md:text-base">

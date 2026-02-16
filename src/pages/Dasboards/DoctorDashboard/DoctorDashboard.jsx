@@ -1,5 +1,4 @@
 // DoctorDashboard.jsx
-
 import React, { useState } from "react";
 import Sidebar from "./Sections/Sidebar";
 import AppointmentRequests from "./Sections/AppointmentRequests";
@@ -99,7 +98,7 @@ const DoctorDashboard = () => {
       >
         <h1
           className="
-            text-2xl sm:text-2xl md:text-3xl lg:text-4xl
+            text-xl sm:text-2xl md:text-3xl lg:text-4xl
             font-extrabold
             bg-gradient-to-r from-green-700 via-emerald-600 to-green-800
             bg-clip-text
