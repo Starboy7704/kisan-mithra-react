@@ -132,7 +132,7 @@ const Navbar = () => {
                   className="rounded-lg px-3 py-2 cursor-pointer hover:bg-green-50"
                   onClick={() => navigate("/login")}
                 >
-                  🛠 Admin Login
+                  🩺 Agri-Expert Login
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
