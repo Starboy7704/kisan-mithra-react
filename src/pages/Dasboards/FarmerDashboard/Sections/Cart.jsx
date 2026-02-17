@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+
+
 import AppwriteTablesDB from "@/src/Appwrite/TableDB.services";
 import {
   APPWRITE_PURCHASES_TABLE_ID,
@@ -10,9 +12,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 import toast from "react-hot-toast";
 import AppwriteStorage from "@/src/Appwrite/Storage.Services";
 
-const Cart = () => {
+
+const Cart = ({ setActiveTab }) => {
+
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+
+
 
   const tablesDB = new AppwriteTablesDB();
   const account = new Account(appwriteClient);
@@ -101,21 +107,27 @@ const Cart = () => {
 };
 
 
-  const checkout = async () => {
-    try {
-      await Promise.all(
-        items.map((item) =>
-          tablesDB.updateRow(APPWRITE_PURCHASES_TABLE_ID, item.$id, {
-            status: "ordered",
-          })
-        )
-      );
-      toast.success("Order placed successfully");
-      setItems([]);
-    } catch {
-      toast.error("Checkout failed");
-    }
-  };
+const checkout = async () => {
+  try {
+    await Promise.all(
+      items.map((item) =>
+        tablesDB.updateRow(APPWRITE_PURCHASES_TABLE_ID, item.$id, {
+          status: "ordered",
+        })
+      )
+    );
+
+    toast.success("Order placed successfully");
+
+    setItems([]);
+
+    setActiveTab("Orders"); // ✅ switch tab
+
+  } catch {
+    toast.error("Checkout failed");
+  }
+};
+
 
   const grandTotal = items.reduce(
     (sum, item) => sum + item.totalPrice,

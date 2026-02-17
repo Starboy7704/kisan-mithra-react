@@ -17,6 +17,7 @@ import { queryClient } from "./queryClient";
 import AboutSection from "./pages/AboutSection";
 import { Toaster } from "react-hot-toast";
 import Payments from "./pages/Dasboards/CustomerDashboard/Sections/Payments";
+import ResetPassword from "./pages/ResetPassword";
 
 const router = createBrowserRouter([
   { path: "/", element: <App/> },
@@ -85,6 +86,11 @@ const router = createBrowserRouter([
     path: "/loginSelection",
     element: <LoginSelection />,
   },
+  {
+  path: "/reset-password",
+  element: <ResetPassword/>
+}
+
 ]);
 createRoot(document.getElementById("root")).render(
   <>

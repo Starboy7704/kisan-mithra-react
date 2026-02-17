@@ -173,34 +173,24 @@ const Orders = () => {
         color: "#059669",
       },
 
-      handler: async function (response) {
-        try {
-          // ✅ Update all items in that order
-          for (const item of items) {
-            await tablesDB.updateRow(APPWRITE_PURCHASES_TABLE_ID, item.$id, {
-              paymentStatus: "paid",
-              paymentId: response.razorpay_payment_id,
-              status: "completed",
-            });
-          }
+     handler: async function (response) {
+  try {
+    for (const item of items) {
+      await tablesDB.updateRow(APPWRITE_PURCHASES_TABLE_ID, item.$id, {
+        paymentStatus: "success",
+        paymentId: response.razorpay_payment_id,
+          status: "ordered",  
+      });
+    }
 
-          // ✅ Update UI immediately
-          setOrders((prev) => {
-            const copy = { ...prev };
-            copy[orderId] = copy[orderId].map((i) => ({
-              ...i,
-              paymentStatus: "paid",
-              status: "completed",
-            }));
-            return copy;
-          });
+    toast.success("Payment Successful 🎉");
 
-          toast.success("Payment Successful 🎉");
-        } catch (error) {
-          console.error(error);
-          toast.error("Payment update failed");
-        }
-      },
+  } catch (error) {
+    console.error("UPDATE ERROR:", error);
+    toast.error("Payment update failed");
+  }
+}
+,
 
       modal: {
         ondismiss: function () {
@@ -360,37 +350,36 @@ const Orders = () => {
             </div>
 
             {/* TOTAL + PAY */}
-            <div className="mt-5 flex justify-between items-center">
-              <p className="text-lg font-bold">Total: ₹{total}</p>
-
-              <button
-                onClick={() => handlePayNow(orderId, items, total)}
-                disabled={isPaid}
-                className={`px-8 py-3 rounded-2xl font-semibold text-white
-    ${
-      isPaid
-        ? "bg-gray-400 cursor-not-allowed"
-        : "bg-emerald-600 hover:bg-emerald-700"
-    }`}
-              >
-                {isPaid ? "Paid ✅" : "Pay Now 💳"}
-              </button>
-            </div>
+            <div className="mt-5 flex justify-between items-center"></div>
           </div>
         );
       })}
 
-      {/* GRAND TOTAL */}
+      {/* FINAL PAY NOW BUTTON */}
       {Object.keys(orders).length > 0 && (
-        <div className="mt-12 bg-emerald-50 border border-emerald-200 rounded-2xl px-6 py-5 flex justify-between items-center">
-          <div>
-            <p className="text-sm text-emerald-700 font-medium">
-              Total Orders Amount
-            </p>
-            <p className="text-3xl font-bold text-emerald-800 mt-1">
-              ₹{grandTotal}
-            </p>
+        <div className="mt-6 bg-white border border-emerald-200 rounded-2xl px-6 py-5 shadow flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-4">
+            <div className="h-12 w-12 flex items-center justify-center rounded-full bg-emerald-100 text-emerald-700 font-bold text-xl">
+              ₹
+            </div>
+
+            <div>
+              <p className="text-sm text-gray-500">Total Amount (All Orders)</p>
+              <p className="text-2xl font-bold text-emerald-800">
+                ₹{grandTotal}
+              </p>
+            </div>
           </div>
+
+          <button
+            onClick={() => {
+              const allItems = Object.values(orders).flat();
+              handlePayNow("ALL_ORDERS", allItems, grandTotal);
+            }}
+            className="px-10 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-2xl shadow-md transition"
+          >
+            Order Now 🚀
+          </button>
         </div>
       )}
     </div>

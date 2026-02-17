@@ -10,7 +10,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import toast from "react-hot-toast";
 import AppwriteStorage from "@/src/Appwrite/Storage.Services";
 
-const Cart = () => {
+const Cart = ({ setActiveTab }) => {
+
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -42,9 +43,7 @@ const Cart = () => {
     fetchCartItems();
   }, []);
 
-  /* ==========================
-     QUANTITY UPDATE
-  ========================== */
+    //  QUANTITY UPDATE
   const updateQuantity = async (item, type) => {
     try {
       let newQuantity =
@@ -78,9 +77,7 @@ const Cart = () => {
     }
   };
 
-  /* ==========================
-     ✅ TOGGLE SELECT
-  ========================== */
+    //  ✅ TOGGLE SELECT
   const toggleSelect = (id) => {
     setSelectedItems((prev) =>
       prev.includes(id)
@@ -89,9 +86,7 @@ const Cart = () => {
     );
   };
 
-  /* ==========================
-     ❌ DELETE SELECTED (FIXED)
-  ========================== */
+    //  ❌ DELETE SELECTED (FIXED)
 const deleteSelected = async () => {
   if (selectedItems.length === 0) return;
   if (!window.confirm("Delete selected cart items?")) return;
@@ -118,39 +113,36 @@ const deleteSelected = async () => {
   }
 };
 
-  /* ==========================
-     CHECKOUT
-  ========================== */
-  const checkout = async () => {
-    try {
-      await Promise.all(
-        items.map((item) =>
-          tablesDB.updateRow(APPWRITE_PURCHASES_TABLE_ID, item.$id, {
-            status: "ordered",
-          })
-        )
-      );
+    //  CHECKOUT
+const checkout = async () => {
+  try {
+    await Promise.all(
+      items.map((item) =>
+        tablesDB.updateRow(APPWRITE_PURCHASES_TABLE_ID, item.$id, {
+          status: "ordered",
+        })
+      )
+    );
 
-      toast.success("Order placed successfully 🌱");
-      setItems([]);
-      setSelectedItems([]);
-    } catch (error) {
-      console.error("Checkout error:", error);
-      toast.error("Checkout failed");
-    }
-  };
+    toast.success("Order placed successfully");
 
-  /* ==========================
-     GRAND TOTAL
-  ========================== */
+    setItems([]);
+
+    setActiveTab("Orders"); // ✅ switch tab
+
+  } catch {
+    toast.error("Checkout failed");
+  }
+};
+
+
+    //  GRAND TOTAL
   const grandTotal = items.reduce(
     (sum, item) => sum + item.totalPrice,
     0
   );
 
-  /* ==========================
-     LOADING
-  ========================== */
+    //  LOADING
   if (loading) {
     return (
       <div className="p-6 space-y-6">
@@ -169,9 +161,7 @@ const deleteSelected = async () => {
     );
   }
 
-  /* ==========================
-     EMPTY CART
-  ========================== */
+    //  EMPTY CART
   if (items.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
@@ -188,9 +178,7 @@ const deleteSelected = async () => {
     );
   }
 
-  /* ==========================
-     MAIN UI
-  ========================== */
+    //  MAIN UI
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h2 className="text-2xl font-bold text-emerald-700 mb-6 text-center">

@@ -28,6 +28,24 @@ function LogInPage() {
   function handleNavigateToRegisterPage() {
     navigate("/loginSelection");
   }
+  async function handleForgotPassword() {
+  if (!email) {
+    toast.error("Enter your email first");
+    return;
+  }
+
+  try {
+    await appwriteAccount.createPasswordRecovery(
+      email,
+      "http://localhost:5173/reset-password"
+    );
+
+    toast.success("Password recovery email sent 📩");
+  } catch (error) {
+    toast.error("Failed to send recovery email");
+  }
+}
+
   const mutation = useMutation({
     mutationFn: async ({ email, password }) => {
       // create session
@@ -132,6 +150,16 @@ function LogInPage() {
                 className="rounded-xl border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
               />
             </div>
+            <div className="text-right">
+  <button
+    type="button"
+    onClick={() => handleForgotPassword()}
+    className="text-sm text-emerald-600 hover:underline"
+  >
+    Forgot Password?
+  </button>
+</div>
+
           </div>
         </CardContent>
 

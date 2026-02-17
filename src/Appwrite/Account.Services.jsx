@@ -58,6 +58,13 @@ async createAppwriteEmailPasswordSession(email, password) {
     throw error;
   }
 }
+async createPasswordRecovery(email, redirectUrl) {
+  return await this.account.createRecovery(email, redirectUrl);
+}
+async updatePasswordRecovery(userId, secret, password) {
+  return await this.account.updateRecovery(userId, secret, password);
+}
+
 
   // ✅ Logout
   async logout() {
