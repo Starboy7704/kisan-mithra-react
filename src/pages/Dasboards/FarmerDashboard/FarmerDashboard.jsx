@@ -35,7 +35,7 @@ const FarmerDashboard = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-green-100 via-white to-green-50">
+    <div className="flex min-h-screen bg-linear-to-br from-green-100 via-white to-green-50">
 
       {/* Sidebar */}
       <Sidebar
@@ -51,7 +51,7 @@ const FarmerDashboard = () => {
       {/* Mobile Menu Button */}
       <button
         className="md:hidden fixed top-4 left-4 z-50 p-2 
-                   bg-gradient-to-r from-green-600 to-emerald-600
+                   bg-linear-to-r from-green-600 to-emerald-600
                    text-white rounded-lg shadow-lg"
         onClick={() => setSidebarOpen(true)}
       >
@@ -63,7 +63,7 @@ const FarmerDashboard = () => {
 
         {/* Header */}
         <div className="bg-white rounded-2xl shadow-md border border-green-200 p-6 mb-6">
-          <h1 className="text-3xl font-bold text-center bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text ">
+          <h1 className="text-3xl font-bold text-center bg-linear-to-r from-green-700 to-emerald-600 bg-clip-text ">
             Farmer Dashboard 🌾
           </h1>
           <p className="text-center text-green-600 mt-2 text-sm">

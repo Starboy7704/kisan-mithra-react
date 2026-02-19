@@ -13,7 +13,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     <aside
       className="
         h-full w-70
-        bg-gradient-to-b from-emerald-900 via-emerald-800 to-emerald-700
+        bg-linear-to-b from-emerald-900 via-emerald-800 to-emerald-700
         text-white
         px-6 py-8
         flex flex-col

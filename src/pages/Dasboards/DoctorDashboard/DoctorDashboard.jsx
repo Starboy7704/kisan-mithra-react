@@ -36,7 +36,7 @@ const DoctorDashboard = () => {
   <div
     className="
       relative flex min-h-screen overflow-hidden
-      bg-gradient-to-br from-emerald-50 via-white to-emerald-100
+      bg-linear-to-br from-emerald-50 via-white to-emerald-100
     "
   >
 
@@ -101,7 +101,7 @@ const DoctorDashboard = () => {
           className="
             text-xl sm:text-2xl md:text-3xl lg:text-4xl
             font-extrabold
-            bg-gradient-to-r from-green-700 via-emerald-600 to-green-800
+            bg-linear-to-r from-green-700 via-emerald-600 to-green-800
             bg-clip-text
             text-center
           "

@@ -52,7 +52,7 @@ const Navbar = () => {
         showNavbar ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <nav className="backdrop-blur-md bg-gradient-to-r from-emerald-100/80 to-green-100 border-b border-emerald-200 shadow-sm">
+      <nav className="backdrop-blur-md bg-linear-to-r from-emerald-100/80 to-green-100 border-b border-emerald-200 shadow-sm">
         <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
 
           {/* Logo */}
@@ -97,7 +97,7 @@ const Navbar = () => {
                 <Button
                   className="
                     rounded-full 
-                    bg-gradient-to-r from-green-600 to-emerald-600 
+                    bg-linear-to-r from-green-600 to-emerald-600 
                     px-6 
                     text-white 
                     shadow-lg 
