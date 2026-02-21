@@ -2,6 +2,7 @@ import Spinner from "@/components/ui/spinner";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import HeroSection from "./pages/Herosection";
+import Footer from "./pages/footer";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -20,7 +21,12 @@ function App() {
       </div>
     );
   }
-  return <HeroSection/>;
-}
+  return(
+    <div className="min-h-screen flex flex-col">
+       <HeroSection />
+        <Footer/>
+    </div>
+  )
+} 
 
 export default App;
