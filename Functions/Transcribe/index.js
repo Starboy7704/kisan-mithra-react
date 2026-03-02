@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-export default async ({ req, res, log, error }) => {
+export default async function (req, res) {
   try {
     const body = JSON.parse(req.body || "{}");
     const { audioBase64 } = body;
@@ -12,10 +12,10 @@ export default async ({ req, res, log, error }) => {
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
     if (!GEMINI_API_KEY) {
-      return res.json({ success: false, error: "Missing Gemini API key" });
+      return res.json({ success: false, error: "Missing API key" });
     }
 
-    const geminiResponse = await fetch(
+    const response = await fetch(
       `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
@@ -31,7 +31,7 @@ export default async ({ req, res, log, error }) => {
                   },
                 },
                 {
-                  text: "Transcribe this audio and translate to English only.",
+                  text: "Transcribe and translate to English only.",
                 },
               ],
             },
@@ -40,8 +40,7 @@ export default async ({ req, res, log, error }) => {
       }
     );
 
-    const geminiData = await geminiResponse.json();
-    log(JSON.stringify(geminiData));
+    const geminiData = await response.json();
 
     const transcript =
       geminiData?.candidates?.[0]?.content?.parts?.[0]?.text;
@@ -49,7 +48,8 @@ export default async ({ req, res, log, error }) => {
     if (!transcript) {
       return res.json({
         success: false,
-        error: "Gemini did not return transcript",
+        error: "Transcript not found",
+        raw: geminiData,
       });
     }
 
@@ -58,10 +58,9 @@ export default async ({ req, res, log, error }) => {
       transcriptEnglish: transcript,
     });
   } catch (err) {
-    error(err.message);
     return res.json({
       success: false,
       error: err.message,
     });
   }
-};
+}

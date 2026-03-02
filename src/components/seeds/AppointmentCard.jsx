@@ -76,7 +76,15 @@ const AppointmentCard = ({ doctorId, onClose }) => {
         JSON.stringify({ audioBase64: base64String })
       );
 
-      const result = JSON.parse(execution.responseBody);
+      console.log("Execution object:", execution);
+console.log("Raw responseBody:", execution.responseBody);
+
+if (!execution.responseBody) {
+  toast.error("Empty response from function ❌");
+  return;
+}
+
+const result = JSON.parse(execution.responseBody);
 
       if (result.success) {
         setIssue(result.transcriptEnglish);
